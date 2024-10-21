@@ -1,0 +1,7 @@
+.page{
+    position: relative;width: 100%;min-height: 100vh;background-color: #131316;color: #fff;
+}
+
+.wrap{
+    width: var(--wrap-width);margin: 0 auto;
+}
