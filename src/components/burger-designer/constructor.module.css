@@ -1,0 +1,23 @@
+.wrap{
+    position: relative;padding: 100px 16px 16px 0;
+}
+
+.list{
+    display: flex;flex-direction: column;gap: 16px;
+}
+
+.total{
+    position: relative;
+}
+
+.row{
+    position: relative;display: grid;grid-template: 'btn item' / 32px 1fr;grid-gap: 8px;
+}
+
+.item{
+    position: relative;grid-area: item;
+}
+
+.toggleButton{
+    grid-area: btn;padding: 2px;align-self: center;
+}

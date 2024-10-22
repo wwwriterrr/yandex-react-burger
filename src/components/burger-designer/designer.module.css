@@ -1,0 +1,4 @@
+.wrap{
+    display: grid;grid-template: 'left right' auto / 1fr 1fr;grid-gap: 0 40px;
+    width: var(--wrap-width);margin: 0 auto;padding: 40px 16px 16px 16px;
+}

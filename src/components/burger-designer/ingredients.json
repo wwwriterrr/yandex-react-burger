@@ -1,0 +1,66 @@
+{
+    "ingredients": [
+        {
+            "title": "Булки",
+            "items": [
+                {
+                    "title": "Краторная булка N-200i",
+                    "price": 20,
+                    "image": "/ingredient1.png"
+                },
+                {
+                    "title": "Флюоресцентная булка R2-D3",
+                    "price": 20,
+                    "image": "/ingredient2.png"
+                }
+            ]
+        },
+        {
+            "title": "Соусы",
+            "items": [
+                {
+                    "title": "Соус Spicy-X",
+                    "price": 30,
+                    "image": "/ingredient3.png"
+                },
+                {
+                    "title": "Соус фирменный Space Sauce",
+                    "price": 30,
+                    "image": "/ingredient4.png"
+                },
+                {
+                    "title": "Соус Spicy-XXL",
+                    "price": 30,
+                    "image": "/ingredient5.png"
+                },
+                {
+                    "title": "Соус фирменный Space Sauce X2",
+                    "price": 30,
+                    "image": "/ingredient6.png"
+                }
+            ]
+        }
+    ],
+    "order": [
+        {
+            "title": "Соус Spicy-XXL",
+            "price": 30,
+            "image": "/ingredient5.png"
+        },
+        {
+            "title": "Соус фирменный Space Sauce X2",
+            "price": 30,
+            "image": "/ingredient6.png"
+        },
+        {
+            "title": "Space ingredient 1",
+            "price": 200,
+            "image": "/ingredient3.png"
+        },
+        {
+            "title": "Space ingredient 2",
+            "price": 150,
+            "image": "/ingredient4.png"
+        }
+    ]
+}
