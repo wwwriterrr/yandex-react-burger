@@ -9,3 +9,9 @@ export type TIngredientGroup = {
     title: string,
     items: TIngredient[],
 }
+
+export type TIconProps = {
+    size?: number,
+    fill?: string,
+    classes?: string,
+}

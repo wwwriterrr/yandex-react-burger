@@ -4,9 +4,17 @@
 }
 
 .text{
-    font-size: 1em;opacity: .5;
+    font-size: .8em;opacity: .5;
 }
 
 .author{
-    font-size: 48px;
+    font-size: 32px;letter-spacing: 8px;
+}
+
+.author a{
+    color: #fff;text-decoration: none;transition: all .3s ease-out;
+}
+
+.author a:hover{
+    text-shadow: 0 0 10px #1c29df;
 }

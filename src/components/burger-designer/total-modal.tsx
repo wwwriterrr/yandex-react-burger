@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './total-modal.module.css';
+import { OkIcon } from '../icons';
 
 
 export const TotalModal: React.FC = () => {
@@ -11,7 +12,7 @@ export const TotalModal: React.FC = () => {
             <div className={styles.identificatorText}>
                 идентификатор заказа
             </div>
-            <img className={styles.image} src={``} alt='ok' />
+            <OkIcon classes={styles.image} size={120} />
             <div className={styles.status}>
                 Ваш заказ начали готовить
             </div>

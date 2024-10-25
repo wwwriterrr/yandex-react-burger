@@ -1,0 +1,1 @@
+export {OkIcon} from './ok';
