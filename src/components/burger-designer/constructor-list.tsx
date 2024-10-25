@@ -27,7 +27,7 @@ export const BurgerConstructorList = () => {
             {order.length && (
                 <>
                     {order.map((row, index) => (
-                        <div className={styles.row}>
+                        <div key={index} className={styles.row}>
                             <button className={styles.toggleButton}>
                                 <DragIcon type={`primary`} />
                             </button>
