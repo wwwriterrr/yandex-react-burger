@@ -3,7 +3,7 @@ import styles from './ingredients-modal.module.css';
 import { TIngredient } from '../../core/type';
 
 
-export const IngredientModal: React.FC<TIngredient> = ({title, image, params}) => {
+export const IngredientDetail: React.FC<TIngredient> = ({title, image, params}) => {
     return (
         <div className={styles.wrap}>
             <img className={styles.image} src={image} alt={title} />

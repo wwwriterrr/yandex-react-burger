@@ -11,7 +11,7 @@
 }
 
 .list{
-    position: relative;padding: 40px 0 0 0;
+    position: relative;padding: 40px 0 40px 0;max-height: 770px;overflow: auto;
     display: grid;grid-template-columns: 1fr 1fr;grid-gap: 32px 24px;
 }
 

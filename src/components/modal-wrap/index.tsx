@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { useModalContext } from '../../contexts';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ModalOverlay } from './modal-overlay';
 
 
 export const ModalWrap: React.FC = () => {
     const {modalContent, modalTitle, closeModal} = useModalContext();
 
-    const overlayClickHandler = () => {
+    const closeClickHandler = () => {
         closeModal();
     }
 
@@ -25,11 +26,11 @@ export const ModalWrap: React.FC = () => {
 
     return (
         <div className={styles.wrap}>
-            <div className={styles.overlay} onClick={overlayClickHandler}></div>
+            <ModalOverlay />
             <div className={styles.window}>
                 <div className={styles.head}>
                     {modalTitle && <div className={`${styles.title} text text_type_main-large`}>{modalTitle}</div>}
-                    <button className={styles.closeButton} onClick={overlayClickHandler}>
+                    <button className={styles.closeButton} onClick={closeClickHandler}>
                         <CloseIcon type={`primary`} />
                     </button>
                 </div>

@@ -23,7 +23,7 @@ export const IngredientsList: React.FC = () => {
                                 <>
                                     <h3 className={styles.listTitle}>{row.title}</h3>
                                     {row.items.map((item, i) => (
-                                        <Ingredient key={i} {...item} />
+                                        <Ingredient key={i} ingredient={item} />
                                     ))}
                                 </>
                             )}

@@ -5,7 +5,7 @@ import { TIconProps } from "../../core/type"
 export const OkIcon: React.FC<TIconProps> = ({size, classes}) => {
     return (
         <svg className={`ok-icon ${classes}`} width={size || 50} height={size || 50} viewBox="0 0 122 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width={size || 50} height={size || 50} fill="url(#pattern0_351_1932)" stroke="transparent" stroke-dasharray="2 2"/>
+            <rect x="0.5" y="0.5" width={size || 50} height={size || 50} fill="url(#pattern0_351_1932)" stroke="transparent" strokeDasharray="2 2"/>
             <defs>
                 <pattern id="pattern0_351_1932" patternContentUnits="objectBoundingBox" width="1" height="1">
                     <use xlinkHref="#image0_351_1932" transform="translate(-0.156667) scale(0.00333333)"/>

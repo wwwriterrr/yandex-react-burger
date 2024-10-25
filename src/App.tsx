@@ -6,12 +6,10 @@ import { ModalMiddleware } from './middlewares';
 
 export const App: React.FC = () => {
   return (
-    <>
-      <ModalContextProvider>
-        <ModalMiddleware>
-          <MainPage />
-        </ModalMiddleware>
-      </ModalContextProvider>
-    </>
+    <ModalContextProvider>
+      <ModalMiddleware>
+        <MainPage />
+      </ModalMiddleware>
+    </ModalContextProvider>
   )
 }
