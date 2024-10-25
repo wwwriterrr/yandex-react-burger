@@ -20,7 +20,7 @@
 }
 
 .ingredient{
-    position: relative;width: 100%;display: flex;flex-direction: column;gap: 4px;
+    position: relative;width: 100%;display: flex;flex-direction: column;gap: 4px;cursor: pointer;
 }
 
 .ingredientImage{

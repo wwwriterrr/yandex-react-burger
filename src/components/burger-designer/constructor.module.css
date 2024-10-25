@@ -7,7 +7,24 @@
 }
 
 .total{
-    position: relative;
+    position: relative;display: flex;align-items: center;justify-content: flex-end;
+    gap: 40px;margin: 40px 0 0 0;padding: 0 16px 0 16px;
+}
+
+.price{
+    position: relative;display: flex;align-items: center;gap: 10px;
+}
+
+.price span{
+    font-size: 48px;
+}
+
+.price svg{
+    width: 36px;height: 36px;
+}
+
+.totalButton{
+
 }
 
 .row{

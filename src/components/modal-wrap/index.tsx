@@ -21,7 +21,7 @@ export const ModalWrap: React.FC = () => {
         return () => {
             document.removeEventListener('keydown', escHandler);
         }
-    }, [])
+    }, [closeModal])
 
     return (
         <div className={styles.wrap}>
