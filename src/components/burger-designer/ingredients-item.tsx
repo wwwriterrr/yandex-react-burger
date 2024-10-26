@@ -1,25 +1,25 @@
 import React from 'react';
 import styles from './ingredients.module.css';
-import { TIngredient } from '../../core/type';
+import { TApiIngredient } from '../../core/type';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useModalContext } from '../../contexts';
 import { IngredientDetail } from './ingredients-modal';
 
 
-export const Ingredient: React.FC<{ingredient: TIngredient}> = ({ingredient}) => {
-    const {title, image, price, params} = ingredient;
+export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient}) => {
+    const {name, image, price} = ingredient;
 
     const {openModal} = useModalContext();
 
     const ingredientClickHandler = () => {
-        openModal('Детали ингредиента', <IngredientDetail {...{title, image, price, params}} />);
+        openModal('Детали ингредиента', <IngredientDetail {...ingredient} />);
     }
 
     return (
         <div className={styles.ingredient} onClick={ingredientClickHandler}>
-            <img src={image} alt={title} className={styles.ingredientImage} />
+            <img src={image} alt={name} className={styles.ingredientImage} />
             <div className={styles.ingredientPrice}>{price}<CurrencyIcon type={`primary`} /></div>
-            <h4 className={styles.ingredientTitle}>{title}</h4>
+            <h4 className={styles.ingredientTitle}>{name}</h4>
         </div>
     )
 }

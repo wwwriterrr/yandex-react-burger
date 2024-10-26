@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './ingredients-modal.module.css';
-import { TIngredient } from '../../core/type';
+import { TApiIngredient } from '../../core/type';
 
 
-export const IngredientDetail: React.FC<TIngredient> = ({title, image, params}) => {
+export const IngredientDetail: React.FC<TApiIngredient> = ({name, image_large, proteins, fat, carbohydrates, calories}) => {
     return (
         <div className={styles.wrap}>
-            <img className={styles.image} src={image} alt={title} />
-            <h2 className={styles.title}>{title}</h2>
+            <img className={styles.image} src={image_large} alt={name} />
+            <h2 className={styles.title}>{name}</h2>
             <div className={styles.params}>
-                {params.map((item, i) => (
+                {[calories, proteins, fat, carbohydrates].map((item, i) => (
                     <div key={i} className={`${styles.paramsItem} text text_type_main-medium`}>{item}</div>
                 ))}
             </div>
