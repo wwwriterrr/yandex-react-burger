@@ -25,19 +25,23 @@ export const ModalWrap: React.FC = () => {
     }, [closeModal])
 
     return (
-        <div className={styles.wrap}>
-            <ModalOverlay />
-            <div className={styles.window}>
-                <div className={styles.head}>
-                    {modalTitle && <div className={`${styles.title} text text_type_main-large`}>{modalTitle}</div>}
-                    <button className={styles.closeButton} onClick={closeClickHandler}>
-                        <CloseIcon type={`primary`} />
-                    </button>
+        <>
+            {modalContent ? (
+                <div className={styles.wrap}>
+                    <ModalOverlay />
+                    <div className={styles.window}>
+                        <div className={styles.head}>
+                            {modalTitle && <div className={`${styles.title} text text_type_main-large`}>{modalTitle}</div>}
+                            <button className={styles.closeButton} onClick={closeClickHandler}>
+                                <CloseIcon type={`primary`} />
+                            </button>
+                        </div>
+                        <div className={styles.content}>
+                            {modalContent}
+                        </div>
+                    </div>
                 </div>
-                <div className={styles.content}>
-                    {modalContent}
-                </div>
-            </div>
-        </div>
+            ) : null}
+        </>
     )
 }

@@ -48,8 +48,8 @@ export const IngredientsList: React.FC = () => {
                                         <React.Fragment key={index}>
                                             <>
                                                 <h3 className={styles.listTitle}>{translateGroup(key)}</h3>
-                                                {(ingredients[key as keyof TApiIngredientGroup] as TApiIngredient[]).map((item, i) => (
-                                                    <Ingredient key={i} ingredient={item} />
+                                                {(ingredients[key as keyof TApiIngredientGroup] as TApiIngredient[]).map(item => (
+                                                    <Ingredient key={item._id} ingredient={item} />
                                                 ))}
                                             </>
                                         </React.Fragment>
