@@ -1,22 +1,27 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css';
-import * as data from './ingredients.json';
 import React, { useEffect, useState } from 'react';
 import { useModalContext } from '../../contexts';
 import { TotalModal } from './total-modal';
+import { useAppSelector } from '../../services/store';
 
 
 export const BurgerConstructorTotal: React.FC = () => {
-    const cart = data.order;
     const [total, setTotal] = useState<number>(0);
 
     const {openModal} = useModalContext();
 
+    const constructor = useAppSelector(state => state.ingredients.constructor);
+
     useEffect(() => {
-        let total: number = 400;
-        cart.map(row => total += row.price);
-        setTotal(total);
-    }, [cart]);
+        if(constructor.length){
+            const sum = constructor.reduce((acc, item) => { return acc + item.price }, 0);
+
+            setTotal(sum);
+        }else{
+            setTotal(0);
+        }
+    }, [constructor]);
 
     const onClickHandler: () => void = () => {
         openModal(null, <TotalModal />);

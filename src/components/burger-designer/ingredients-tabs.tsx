@@ -1,11 +1,11 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
-import { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { translateGroup } from '../../core/utils';
 
 
-export const IngredientsTabs = () => {
+export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
     const [current, setCurrent] = useState<string | null>(null);
     const [tabs, setTabs] = useState<string[]>([]);
 
@@ -30,12 +30,12 @@ export const IngredientsTabs = () => {
 
     const tabClickHandler = (value: string) => {
         setCurrent(value);
-        console.log(value);
 
         const tabTitle = document.getElementById(`group-${value}`);
-        if(!tabTitle) return;
+        const container = listRef.current;
+        if(!tabTitle || !container) return;
 
-        tabTitle.scrollIntoView({behavior: 'smooth'});
+        container?.scrollTo({top: tabTitle.offsetTop, behavior: 'smooth'});
     }
 
     return (

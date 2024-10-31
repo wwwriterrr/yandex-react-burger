@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TApiIngredient, TApiResponse } from "../../core/type";
 import { apiUrl } from "../../core/constants";
+import { format } from "path";
 
 
 type IngredientsState = {
     ingredients: TApiIngredient[],
     ingredientsLoading: boolean,
     ingredientsError: string | null,
+    constructor: TApiIngredient[],
 };
 
 export const getIngredients = createAsyncThunk(
@@ -34,13 +36,20 @@ const initialState: IngredientsState = {
     ingredients: [],
     ingredientsLoading: false,
     ingredientsError: null,
+    constructor: [],
 }
 
 export const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {
+        removeConstructorItem: (state, action) => {
+            const index = action.payload as number;
 
+            if(index === 0 || index === state.constructor.length-1) return;
+
+            state.constructor.splice(index, 1);
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -51,6 +60,11 @@ export const ingredientsSlice = createSlice({
             .addCase(getIngredients.fulfilled, (state, action) => {
                 state.ingredientsLoading = false;
                 state.ingredients = action.payload;
+
+                const firstBun = action.payload.filter(item => item.type === 'bun')[0];
+                const oneMain = action.payload.filter(item => item.type === 'main')[0];
+                const oneSauce = action.payload.filter(item => item.type === 'sauce')[0];
+                if(firstBun && oneMain && oneSauce) state.constructor = [firstBun, oneSauce, oneMain, firstBun];
             })
             .addCase(getIngredients.rejected, (state, action) => {
                 state.ingredientsLoading = false;
@@ -60,3 +74,5 @@ export const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
+
+export const {removeConstructorItem} = ingredientsSlice.actions;

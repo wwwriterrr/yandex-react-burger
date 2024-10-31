@@ -1,5 +1,5 @@
 import styles from './ingredients.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { TApiIngredient, TApiIngredientGroup } from '../../core/type';
 import { Ingredient } from './ingredients-item';
 import { IngredientsSkeleton } from './ingredients-skeleton';
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getIngredients } from '../../services/ingredients/ingredientsSlice';
 
 
-export const IngredientsList: React.FC = () => {
+export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
     const [ingredientsGroups, setIngredientsGroups] = useState<TApiIngredientGroup | null>(null);
 
     const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ export const IngredientsList: React.FC = () => {
                     {error ? (
                         <div>{error}</div>
                     ) : (
-                        <div className={styles.list}>
+                        <div ref={listRef} className={styles.list}>
                             {ingredientsGroups ? (
                                 <>
                                     {Object.keys(ingredientsGroups).map((key, index) => (
