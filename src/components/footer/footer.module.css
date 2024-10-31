@@ -1,0 +1,20 @@
+.footer{
+    position: relative;min-height: 200px;margin: 40px 0 0 0;background-color: #1C1C21;
+    display: flex;flex-direction: column; align-items: center;justify-content: center;gap: 16px;
+}
+
+.text{
+    font-size: .8em;opacity: .5;
+}
+
+.author{
+    font-size: 32px;letter-spacing: 8px;
+}
+
+.author a{
+    color: #fff;text-decoration: none;transition: all .3s ease-out;
+}
+
+.author a:hover{
+    text-shadow: 0 0 10px #1c29df;
+}

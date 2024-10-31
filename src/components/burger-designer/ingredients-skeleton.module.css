@@ -1,0 +1,7 @@
+.wrap{
+    display: grid;grid-template-columns: 1fr 1fr;grid-auto-rows: 200px;grid-gap: 40px 24px;padding: 40px 16px;
+}
+
+.item{
+    width: 100%;height: 100%;background-color: #1e1e22;border-radius: 20px;
+}

@@ -1,0 +1,36 @@
+.wrap{
+    position: relative;
+}
+
+.title{
+    margin: 0 0 20px 0;
+}
+
+.tabs{
+    position: relative; display: flex;
+}
+
+.list{
+    position: relative;padding: 40px 0 40px 0;max-height: 770px;overflow: auto;
+    display: grid;grid-template-columns: 1fr 1fr;grid-gap: 32px 24px;
+}
+
+.listTitle{
+    position: relative;grid-column-end: span 2;font-size: 24px;margin: 40px 0 24px 0;
+}
+
+.ingredient{
+    position: relative;width: 100%;display: flex;flex-direction: column;gap: 4px;cursor: pointer;
+}
+
+.ingredientImage{
+    width: 100%;
+}
+
+.ingredientPrice{
+    display: flex;align-items: center;justify-content: center;gap: 8px;font-size: 28px;
+}
+
+.ingredientTitle{
+    position: relative;text-align: center;font-size: 1em;margin: 0;padding: 0;
+}

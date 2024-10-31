@@ -1,0 +1,23 @@
+.wrap{
+    position: relative;display: flex;flex-direction: column;align-items: center;justify-content: center;
+}
+
+.identificator{
+    text-shadow: 0 0 10px #3333FF80;margin: 0 0 32px 0;
+}
+
+.identificatorText{
+    font-size: 24px;margin: 0 0 60px 0;
+}
+
+.image{
+    width: 120px;height: 120px;margin: 0 0 60px 0;
+}
+
+.status{
+    font-size: 1em; margin: 0 0 8px 0;
+}
+
+.statusText{
+    font-size: 1em;color: #8585AD;
+}
