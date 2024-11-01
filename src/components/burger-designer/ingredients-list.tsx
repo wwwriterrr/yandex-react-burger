@@ -44,7 +44,7 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
                                     {Object.keys(ingredientsGroups).map((key, index) => (
                                         <React.Fragment key={index}>
                                             <>
-                                                <h3 id={`group-${key}`} className={styles.listTitle}>{translateGroup(key)}</h3>
+                                                <h3 id={`group-${key}`} data-type={key} className={styles.listTitle}>{translateGroup(key)}</h3>
                                                 {(ingredientsGroups[key as keyof TApiIngredientGroup] as TApiIngredient[]).map(item => (
                                                     <Ingredient key={item._id} ingredient={item} />
                                                 ))}

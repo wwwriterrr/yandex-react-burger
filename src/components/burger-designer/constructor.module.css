@@ -24,11 +24,15 @@
 }
 
 .totalButton{
-
+    
 }
 
 .row{
     position: relative;display: grid;grid-template: 'btn item' / 32px 1fr;grid-gap: 8px;
+}
+
+.row_dragging{
+    opacity: 0;
 }
 
 .item{

@@ -16,7 +16,12 @@ export const BurgerConstructorList = () => {
                     {constructor.length >= 2 ? (
                         <>
                             {constructor.map((item, index) => (
-                                <ConstructorItem key={`item-${item._id}-${index}`} ingredient={item} index={index} constructorLength={constructor.length} />
+                                <ConstructorItem 
+                                    key={item.type === 'bun' ? `item-${item._id}-${index}` : `item-${item._id}`} 
+                                    ingredient={item} 
+                                    index={index} 
+                                    constructorLength={constructor.length} 
+                                />
                             ))}
                         </>
                     ) : null}

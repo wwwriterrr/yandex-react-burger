@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TApiIngredient, TApiResponse } from "../../core/type";
 import { apiUrl } from "../../core/constants";
-import { format } from "path";
+import update from 'immutability-helper'
 
 
 type IngredientsState = {
@@ -49,7 +49,18 @@ export const ingredientsSlice = createSlice({
             if(index === 0 || index === state.constructor.length-1) return;
 
             state.constructor.splice(index, 1);
-        }
+        },
+        moveConstructorItem: (state, action) => {
+            const dragIndex = action.payload.dragIndex;
+            const hoverIndex = action.payload.hoverIndex;
+
+            state.constructor = update(state.constructor, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, state.constructor[dragIndex] as TApiIngredient],
+                ],
+            })
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -75,4 +86,4 @@ export const ingredientsSlice = createSlice({
 
 export default ingredientsSlice.reducer;
 
-export const {removeConstructorItem} = ingredientsSlice.actions;
+export const {removeConstructorItem, moveConstructorItem} = ingredientsSlice.actions;

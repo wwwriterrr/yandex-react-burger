@@ -28,6 +28,29 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
         }
     }, [ingredients]);
 
+    useEffect(() => {
+        const scrollHandler = () => {
+            const scrollTop = listRef.current?.scrollTop;
+            const containerOffset = (listRef.current?.clientHeight as number) / 2;
+            if(!scrollTop || !containerOffset) return;
+            const titles = listRef.current?.querySelectorAll('h3');
+
+            titles?.forEach((title) => {
+                const type = title.getAttribute('data-type');
+                const offset = title.offsetTop;
+                if(!type || !offset) return;
+                
+                if(scrollTop+containerOffset >= offset) setCurrent(type);
+            });
+        }
+
+        listRef.current?.addEventListener('scroll', scrollHandler);
+
+        return () => {
+            listRef.current?.removeEventListener('scroll', scrollHandler);
+        }
+    }, [])
+
     const tabClickHandler = (value: string) => {
         setCurrent(value);
 
