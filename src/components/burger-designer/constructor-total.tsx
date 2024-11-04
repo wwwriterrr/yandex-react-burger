@@ -3,15 +3,21 @@ import styles from './constructor.module.css';
 import React, { useEffect, useState } from 'react';
 import { useModalContext } from '../../contexts';
 import { TotalModal } from './total-modal';
-import { useAppSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { createOrder, TOrderResponse } from '../../services/ingredients/ingredientsSlice';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 
 export const BurgerConstructorTotal: React.FC = () => {
     const [total, setTotal] = useState<number>(0);
 
+    const dispatch = useAppDispatch();
+
     const {openModal} = useModalContext();
 
     const constructor = useAppSelector(state => state.ingredients.constructor);
+
+    const loading = useAppSelector(state => state.ingredients.orderLoading);
 
     useEffect(() => {
         if(constructor.length){
@@ -24,7 +30,13 @@ export const BurgerConstructorTotal: React.FC = () => {
     }, [constructor]);
 
     const onClickHandler: () => void = () => {
-        openModal(null, <TotalModal />);
+        dispatch(createOrder())
+            .then((data) => {
+                if(data.type === 'ingredients/createOrder/fulfilled'){
+                    const response: TOrderResponse = (data as PayloadAction<TOrderResponse>).payload;
+                    openModal(null, <TotalModal number={response.order.number} name={response.name} />);
+                }
+            })
     }
 
     return (
@@ -36,7 +48,7 @@ export const BurgerConstructorTotal: React.FC = () => {
                         <CurrencyIcon type={`primary`} />
                     </div>
                     <Button htmlType="button" type={`primary`} size="large" onClick={onClickHandler}>
-                        Оформить заказ
+                        {loading ? 'Ожидайте ...' : `Оформить заказ`}
                     </Button>
                 </div>
             ) : null}

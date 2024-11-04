@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styles from './constructor.module.css';
 import { TApiIngredient } from '../../core/type';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../services/store';
 import { moveConstructorItem, removeConstructorItem } from '../../services/ingredients/ingredientsSlice';
 import { useDrag, useDrop } from 'react-dnd';
-import type { Identifier, XYCoord } from 'dnd-core'
+import type { Identifier, XYCoord } from 'dnd-core';
 
 
 type TProps = {
@@ -87,12 +87,20 @@ export const ConstructorItem: React.FC<TProps> = ({ingredient, constructorLength
         })
     }))
 
+    const getClasses = useCallback(() => {
+        let classes = styles.row;
+
+        if(isDragging) classes = `${classes} ${styles.row_dragging}`;
+
+        return classes;
+    }, [isDragging]);
+
     preview(drop(rowRef));
 
     return (
         <div 
             ref={rowRef} 
-            className={`${styles.row} ${isDragging ? styles.row_dragging : null}`}
+            className={getClasses()}
             data-handler-id={handlerId}
         >
             {(index !== 0 && index !== constructorLength-1 && constructorLength > 3) && (

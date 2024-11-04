@@ -4,14 +4,22 @@ import { TApiIngredient } from '../../core/type';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useModalContext } from '../../contexts';
 import { IngredientDetail } from './ingredients-modal';
-import { useAppSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useDrag } from 'react-dnd';
+import { addToConstructor, replaceConstructorBun, setActiveIngredient } from '../../services/ingredients/ingredientsSlice';
 
+
+interface DropResult {
+    name: string,
+    pos: 'top' | 'bottom',
+}
 
 export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient}) => {
     const {name, image, price} = ingredient;
 
     const ref = useRef<HTMLDivElement>(null);
+
+    const dispatch = useAppDispatch();
 
     const {openModal} = useModalContext();
 
@@ -20,7 +28,8 @@ export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient})
     const count = constructor.filter(item => item._id === ingredient._id).length;
 
     const ingredientClickHandler = () => {
-        openModal('Детали ингредиента', <IngredientDetail {...ingredient} />);
+        dispatch(setActiveIngredient({ingredient}));
+        openModal('Детали ингредиента', <IngredientDetail />);
     }
 
     const [{isDragging}, dragRef] = useDrag(() => ({
@@ -30,6 +39,16 @@ export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient})
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
         }),
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult<DropResult>();
+            if (item && dropResult && dropResult.name === 'constructor') {
+                if(item.type === 'bun'){
+                    dispatch(replaceConstructorBun({pos: dropResult.pos, ingredientId: item.id}));
+                }else{
+                    dispatch(addToConstructor({ingredientId: item.id}));
+                }
+            }
+        },
     }))
 
     dragRef(ref);

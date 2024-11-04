@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './ingredients-modal.module.css';
-import { TApiIngredient } from '../../core/type';
+import { useAppSelector } from '../../services/store';
 
 
-export const IngredientDetail: React.FC<TApiIngredient> = ({name, image_large, proteins, fat, carbohydrates, calories}) => {
+export const IngredientDetail: React.FC = () => {
+    const ingredient = useAppSelector(state => state.ingredients.activeIngredient);
+
+    if(!ingredient) return null;
+
+    const {name, image_large, proteins, fat, carbohydrates, calories} = ingredient;
+
     return (
         <div className={styles.wrap}>
             <img className={styles.image} src={image_large} alt={name} />
