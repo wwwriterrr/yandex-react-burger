@@ -9,10 +9,14 @@ type IngredientsState = {
     ingredients: TApiIngredient[],
     ingredientsLoading: boolean,
     ingredientsError: string | null,
-    constructor: TApiIngredient[],
+    constructor: (TApiIngredient & {rowId: string})[],
     activeIngredient: TApiIngredient | null,
     orderLoading: boolean,
 };
+
+const generateId = () => {
+    return `item-${Math.random().toString(8).slice(2)}`;
+}
 
 export const getIngredients = createAsyncThunk(
     'ingredients/getIngredients',
@@ -106,7 +110,7 @@ export const ingredientsSlice = createSlice({
             state.constructor = update(state.constructor, {
                 $splice: [
                     [dragIndex, 1],
-                    [hoverIndex, 0, state.constructor[dragIndex] as TApiIngredient],
+                    [hoverIndex, 0, state.constructor[dragIndex] as (TApiIngredient & {rowId: string})],
                 ],
             })
         },
@@ -117,9 +121,9 @@ export const ingredientsSlice = createSlice({
             if(!ingredient) return;
 
             if(pos === 'top'){
-                state.constructor[0] = ingredient;
+                state.constructor[0] = {...ingredient, rowId: generateId()};
             }else{
-                state.constructor[state.constructor.length-1] = ingredient;
+                state.constructor[state.constructor.length-1] = {...ingredient, rowId: generateId()};
             }
         },
         addToConstructor: (state, action: PayloadAction<{ingredientId: string}>) => {
@@ -127,9 +131,9 @@ export const ingredientsSlice = createSlice({
 
             if(!ingredient) return;
 
-            state.constructor.splice((state.constructor.length-1), 0, ingredient);
+            state.constructor.splice((state.constructor.length-1), 0, {...ingredient, rowId: generateId()});
         },
-        setActiveIngredient: (state, action: PayloadAction<{ingredient: TApiIngredient}>) => {
+        setActiveIngredient: (state, action: PayloadAction<{ingredient: TApiIngredient | null}>) => {
             state.activeIngredient = action.payload.ingredient;
         },
     },
@@ -149,7 +153,12 @@ export const ingredientsSlice = createSlice({
 
                 if(!firstBun || !oneMain || !oneSauce) return;
 
-                state.constructor = [firstBun, oneMain, oneSauce, firstBun];
+                state.constructor = [
+                    {...firstBun, rowId: generateId()}, 
+                    {...oneMain, rowId: generateId()}, 
+                    {...oneSauce, rowId: generateId()}, 
+                    {...firstBun, rowId: generateId()}
+                ];
             })
             .addCase(getIngredients.rejected, (state, action) => {
                 state.ingredientsLoading = false;
@@ -170,7 +179,12 @@ export const ingredientsSlice = createSlice({
 
                 if(!firstBun || !oneMain || !oneSauce) return;
 
-                state.constructor = [firstBun, oneMain, oneSauce, firstBun];
+                state.constructor = [
+                    {...firstBun, rowId: generateId()}, 
+                    {...oneMain, rowId: generateId()}, 
+                    {...oneSauce, rowId: generateId()}, 
+                    {...firstBun, rowId: generateId()}
+                ];
             })
             .addCase(createOrder.rejected, (state) => {
                 state.orderLoading = false;

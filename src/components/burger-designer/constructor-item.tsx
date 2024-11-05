@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import styles from './constructor.module.css';
 import { TApiIngredient } from '../../core/type';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,7 +9,7 @@ import type { Identifier, XYCoord } from 'dnd-core';
 
 
 type TProps = {
-    ingredient: TApiIngredient,
+    ingredient: TApiIngredient & {rowId: string},
     constructorLength: number,
     index: number,
 }
@@ -50,9 +50,9 @@ export const ConstructorItem: React.FC<TProps> = ({ingredient, constructorLength
             const dragIndex = item.index;
             const hoverIndex = index;
 
-            if (dragIndex === hoverIndex) {
-                return;
-            }
+            if (dragIndex === hoverIndex) return;
+        
+            // if(item.id === ingredient.rowId) return;
     
             const hoverBoundingRect = rowRef.current?.getBoundingClientRect();
     
@@ -73,34 +73,26 @@ export const ConstructorItem: React.FC<TProps> = ({ingredient, constructorLength
     
             dispatch(moveConstructorItem({dragIndex, hoverIndex}));
     
-            item.index = hoverIndex
+            item.index = hoverIndex;
         },
     }))
 
     const [{isDragging}, drag, preview] = useDrag(() => ({
         type: ingredient.type,
         item: () => {
-            return { id: ingredient._id, index, type: ingredient.type };
+            return { id: ingredient.rowId, index, type: ingredient.type };
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         })
     }))
 
-    const getClasses = useCallback(() => {
-        let classes = styles.row;
-
-        if(isDragging) classes = `${classes} ${styles.row_dragging}`;
-
-        return classes;
-    }, [isDragging]);
-
     preview(drop(rowRef));
 
     return (
         <div 
             ref={rowRef} 
-            className={getClasses()}
+            className={`${styles.row} ${isDragging ? styles.row_dragging : ''}`}
             data-handler-id={handlerId}
         >
             {(index !== 0 && index !== constructorLength-1 && constructorLength > 3) && (

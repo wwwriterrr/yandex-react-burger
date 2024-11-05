@@ -36,17 +36,16 @@ export const BurgerConstructorList = () => {
             return { name: 'constructor', pos: dropPosition };
         },
         collect: (monitor) => ({
-            // isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     }))
 
     const renderIngredient = useCallback(
-        (ingredient: TApiIngredient, index: number) => {
-            let key = `item-${ingredient._id}-${index}`;
+        (ingredient: TApiIngredient & {rowId: string}, index: number) => {
             return (
                 <ConstructorItem 
-                    key={key}
+                    // key={ingredient.rowId}
+                    key={`item-${ingredient._id}-${index}`}
                     ingredient={ingredient} 
                     index={index} 
                     constructorLength={constructor.length} 
