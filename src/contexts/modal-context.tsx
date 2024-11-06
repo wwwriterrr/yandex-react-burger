@@ -46,7 +46,7 @@ export const useCreateModalContext = function (props: TContextProps) {
         setModalTitle(null);
         setModalContent(null);
         dispatch(setActiveIngredient({ingredient: null}));
-    }, []);
+    }, [dispatch]);
 
     return {
         modalContent,

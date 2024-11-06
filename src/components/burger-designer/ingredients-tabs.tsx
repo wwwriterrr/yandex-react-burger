@@ -29,11 +29,15 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
     }, [ingredients]);
 
     useEffect(() => {
+        const list = listRef.current;
+
+        if(!list) return;
+
         const scrollHandler = () => {
-            const scrollTop = listRef.current?.scrollTop;
-            const containerOffset = (listRef.current?.clientHeight as number) / 2;
+            const scrollTop = list.scrollTop;
+            const containerOffset = (list.clientHeight as number) / 2;
             if(!scrollTop || !containerOffset) return;
-            const titles = listRef.current?.querySelectorAll('h3');
+            const titles = list.querySelectorAll('h3');
 
             titles?.forEach((title) => {
                 const type = title.getAttribute('data-type');
@@ -44,12 +48,12 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
             });
         }
 
-        listRef.current?.addEventListener('scroll', scrollHandler);
+        list.addEventListener('scroll', scrollHandler);
 
         return () => {
-            listRef.current?.removeEventListener('scroll', scrollHandler);
+            list.removeEventListener('scroll', scrollHandler);
         }
-    }, [])
+    }, [listRef, ingredients])
 
     const tabClickHandler = (value: string) => {
         setCurrent(value);

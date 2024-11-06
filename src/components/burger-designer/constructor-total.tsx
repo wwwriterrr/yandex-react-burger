@@ -30,6 +30,8 @@ export const BurgerConstructorTotal: React.FC = () => {
     }, [constructor]);
 
     const onClickHandler: () => void = () => {
+        if(loading) return;
+
         dispatch(createOrder())
             .then((data) => {
                 if(data.type === 'ingredients/createOrder/fulfilled'){

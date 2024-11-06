@@ -13,8 +13,6 @@ export const BurgerConstructorList = () => {
 
     const listRef = useRef<HTMLDivElement>(null);
 
-    // const idRef = useRef(Math.random().toString(16).slice(2));
-
     const [{ canDrop }, drop] = useDrop(() => ({
         accept: [`outside-bun`, `outside-main`, `outside-sauce`],
         drop: (_, monitor) => {
@@ -44,7 +42,6 @@ export const BurgerConstructorList = () => {
         (ingredient: TApiIngredient & {rowId: string}, index: number) => {
             return (
                 <ConstructorItem 
-                    // key={ingredient.rowId}
                     key={`item-${ingredient._id}-${index}`}
                     ingredient={ingredient} 
                     index={index} 

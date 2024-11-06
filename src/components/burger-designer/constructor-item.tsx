@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import styles from './constructor.module.css';
 import { TApiIngredient } from '../../core/type';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -20,7 +20,11 @@ interface DragItem {
     type: string,
 }
 
-export const ConstructorItem: React.FC<TProps> = ({ingredient, constructorLength, index}) => {
+export const ConstructorItem: React.FC<TProps> = ({
+    ingredient, 
+    constructorLength, 
+    index
+}) => {
     const dispatch = useAppDispatch();
 
     const rowRef = useRef<HTMLDivElement>(null);
@@ -51,8 +55,6 @@ export const ConstructorItem: React.FC<TProps> = ({ingredient, constructorLength
             const hoverIndex = index;
 
             if (dragIndex === hoverIndex) return;
-        
-            // if(item.id === ingredient.rowId) return;
     
             const hoverBoundingRect = rowRef.current?.getBoundingClientRect();
     

@@ -19,7 +19,7 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
 
     useEffect(() => {
         dispatch(getIngredients());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if(ingredients.length){
