@@ -3,6 +3,7 @@ import { TApiIngredient, TApiResponse } from "../../core/type";
 import { apiUrl } from "../../core/constants";
 import update from 'immutability-helper'
 import { RootState } from "../store";
+import { checkResponse } from "../../core/utils";
 
 
 type IngredientsState = {
@@ -24,11 +25,7 @@ export const getIngredients = createAsyncThunk(
         try{
             const response = await fetch(`${apiUrl}/ingredients`);
 
-            if (!response.ok) {
-                return response.json().then((text) => {
-                    return rejectWithValue(text.reason || 'Error with fetch ingredients');
-                });
-            }
+            checkResponse(response);
 
             const data: TApiResponse = await response.json();
 
@@ -64,11 +61,7 @@ export const createOrder = createAsyncThunk(
                 body: JSON.stringify({ingredients}),
             });
 
-            if (!response.ok) {
-                return response.json().then((text) => {
-                    return rejectWithValue(text.reason || 'Error with fetch create order');
-                });
-            }
+            checkResponse(response);
 
             const data: TOrderResponse = await response.json();
 
@@ -114,24 +107,36 @@ export const ingredientsSlice = createSlice({
                 ],
             })
         },
-        replaceConstructorBun: (state, action: PayloadAction<{pos: 'top' | 'bottom', ingredientId: string}>) => {
-            const pos = action.payload.pos;
-            const ingredient = state.ingredients.find(item => item._id === action.payload.ingredientId);
+        replaceConstructorBun: {
+            reducer: (state, action: PayloadAction<{pos: 'top' | 'bottom', ingredientId: string, rowId: string}>) => {
+                const pos = action.payload.pos;
+                const ingredient = state.ingredients.find(item => item._id === action.payload.ingredientId);
 
-            if(!ingredient) return;
+                if(!ingredient) return;
 
-            if(pos === 'top'){
-                state.constructor[0] = {...ingredient, rowId: generateId()};
-            }else{
-                state.constructor[state.constructor.length-1] = {...ingredient, rowId: generateId()};
+                if(pos === 'top'){
+                    state.constructor[0] = {...ingredient, rowId: action.payload.rowId};
+                }else{
+                    state.constructor[state.constructor.length-1] = {...ingredient, rowId: action.payload.rowId};
+                }
+            },
+            prepare: (data) => {
+                data.rowId = generateId();
+                return {payload: data};
             }
         },
-        addToConstructor: (state, action: PayloadAction<{ingredientId: string}>) => {
-            const ingredient = state.ingredients.find(item => item._id === action.payload.ingredientId);
+        addToConstructor: {
+            reducer: (state, action: PayloadAction<{ingredientId: string, rowId: string}>) => {
+                const ingredient = state.ingredients.find(item => item._id === action.payload.ingredientId);
 
-            if(!ingredient) return;
+                if(!ingredient) return;
 
-            state.constructor.splice((state.constructor.length-1), 0, {...ingredient, rowId: generateId()});
+                state.constructor.splice((state.constructor.length-1), 0, {...ingredient, rowId: action.payload.rowId});
+            },
+            prepare: (data) => {
+                data.rowId = generateId();
+                return {payload: data};
+            }
         },
         setActiveIngredient: (state, action: PayloadAction<{ingredient: TApiIngredient | null}>) => {
             state.activeIngredient = action.payload.ingredient;

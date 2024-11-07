@@ -17,3 +17,11 @@ export const translateGroup = (title: string) => {
             return title
     }
 }
+
+export const checkResponse = (response: Response) => {
+    if(!response.ok){
+        return response.json().then((text) => {
+            return Promise.reject(text.reason || 'Error with fetch');
+        });
+    }
+}
