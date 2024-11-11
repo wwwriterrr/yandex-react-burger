@@ -1,25 +1,44 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css';
-import * as data from './ingredients.json';
 import React, { useEffect, useState } from 'react';
 import { useModalContext } from '../../contexts';
 import { TotalModal } from './total-modal';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { createOrder, TOrderResponse } from '../../services/ingredients/ingredientsSlice';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 
 export const BurgerConstructorTotal: React.FC = () => {
-    const cart = data.order;
     const [total, setTotal] = useState<number>(0);
+
+    const dispatch = useAppDispatch();
 
     const {openModal} = useModalContext();
 
+    const constructor = useAppSelector(state => state.ingredients.constructor);
+
+    const loading = useAppSelector(state => state.ingredients.orderLoading);
+
     useEffect(() => {
-        let total: number = 400;
-        cart.map(row => total += row.price);
-        setTotal(total);
-    }, [cart]);
+        if(constructor.length){
+            const sum = constructor.reduce((acc, item) => { return acc + item.price }, 0);
+
+            setTotal(sum);
+        }else{
+            setTotal(0);
+        }
+    }, [constructor]);
 
     const onClickHandler: () => void = () => {
-        openModal(null, <TotalModal />);
+        if(loading) return;
+
+        dispatch(createOrder())
+            .then((data) => {
+                if(data.type === 'ingredients/createOrder/fulfilled'){
+                    const response: TOrderResponse = (data as PayloadAction<TOrderResponse>).payload;
+                    openModal(null, <TotalModal number={response.order.number} name={response.name} />);
+                }
+            })
     }
 
     return (
@@ -31,7 +50,7 @@ export const BurgerConstructorTotal: React.FC = () => {
                         <CurrencyIcon type={`primary`} />
                     </div>
                     <Button htmlType="button" type={`primary`} size="large" onClick={onClickHandler}>
-                        Оформить заказ
+                        {loading ? 'Ожидайте ...' : `Оформить заказ`}
                     </Button>
                 </div>
             ) : null}

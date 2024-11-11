@@ -3,14 +3,14 @@ import styles from './total-modal.module.css';
 import { OkIcon } from '../icons';
 
 
-export const TotalModal: React.FC = () => {
+export const TotalModal: React.FC<{number: number, name: string}> = ({number, name}) => {
     return (
         <div className={styles.wrap}>
             <div className={`${styles.identificator} text text_type_digits-large`}>
-                034536
+                {number}
             </div>
             <div className={styles.identificatorText}>
-                идентификатор заказа
+                {name}
             </div>
             <OkIcon classes={styles.image} size={120} />
             <div className={styles.status}>

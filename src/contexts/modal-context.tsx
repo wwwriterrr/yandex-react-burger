@@ -1,5 +1,7 @@
 import React, { ReactNode, useCallback } from 'react';
 import { useState, useContext } from 'react';
+import { useAppDispatch } from '../services/store';
+import { setActiveIngredient } from '../services/ingredients/ingredientsSlice';
 
 
 type TModalContext = {
@@ -33,6 +35,8 @@ export const useCreateModalContext = function (props: TContextProps) {
     const [modalTitle, setModalTitle] = useState<ReactNode>(props.modalTitle || null);
     const [modalContent, setModalContent] = useState<ReactNode>(props.modalContent || null);
 
+    const dispatch = useAppDispatch();
+
     const openModal = useCallback((title: string | null, content: ReactNode) => {
         setModalTitle(title);
         setModalContent(content);
@@ -41,7 +45,8 @@ export const useCreateModalContext = function (props: TContextProps) {
     const closeModal = useCallback(() => {
         setModalTitle(null);
         setModalContent(null);
-    }, []);
+        dispatch(setActiveIngredient({ingredient: null}));
+    }, [dispatch]);
 
     return {
         modalContent,

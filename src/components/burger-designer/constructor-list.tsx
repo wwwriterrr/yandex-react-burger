@@ -1,57 +1,65 @@
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css';
-import * as data from './ingredients.json';
-import { useState, useEffect } from 'react';
-import { TIngredient } from '../../core/type';
+import { useAppSelector } from '../../services/store';
+import { ConstructorItem } from './constructor-item';
+import { useCallback, useRef } from 'react';
+import { useDrop } from 'react-dnd';
+import type { XYCoord } from 'dnd-core'
+import { TApiIngredient } from '../../core/type';
 
 
 export const BurgerConstructorList = () => {
-    const [order, setOrder] = useState<TIngredient[]>([]);
+    const loading = useAppSelector(state => state.ingredients.ingredientsLoading);
+    const constructor = useAppSelector(state => state.ingredients.constructor);
 
-    useEffect(() => {
-        setOrder(data.order);
-    }, []);
+    const listRef = useRef<HTMLDivElement>(null);
+
+    const [{ canDrop }, drop] = useDrop(() => ({
+        accept: [`outside-bun`, `outside-main`, `outside-sauce`],
+        drop: (_, monitor) => {
+            let dropPosition = 'top';
+
+            const hoverBoundingRect = listRef.current?.getBoundingClientRect();
+
+            if(!hoverBoundingRect) return;
+    
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    
+            const clientOffset = monitor.getClientOffset();
+    
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+
+            if(hoverClientY > hoverMiddleY) dropPosition = 'bottom';
+            
+            return { name: 'constructor', pos: dropPosition };
+        },
+        collect: (monitor) => ({
+            canDrop: monitor.canDrop(),
+        }),
+    }))
+
+    const renderIngredient = useCallback(
+        (ingredient: TApiIngredient & {rowId: string}, index: number) => {
+            return (
+                <ConstructorItem 
+                    key={`item-${ingredient._id}-${index}`}
+                    ingredient={ingredient} 
+                    index={index} 
+                    constructorLength={constructor.length} 
+                />
+            )
+        }, [constructor.length],
+    )
+
+    drop(listRef);
 
     return (
-        <div className={styles.list}>
-            <div className={styles.row}>
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text="Краторная булка N-200i (верх)"
-                    price={200}
-                    thumbnail={`/ingredient1.png`}
-                    extraClass={styles.item}
-                />
-            </div>
-            {order.length && (
-                <>
-                    {order.map((row, index) => (
-                        <div key={index} className={styles.row}>
-                            <button className={styles.toggleButton}>
-                                <DragIcon type={`primary`} />
-                            </button>
-                            <ConstructorElement
-                                key={index}
-                                text={row.title}
-                                price={row.price}
-                                thumbnail={row.image}
-                                extraClass={styles.item}
-                            />
-                        </div>
-                    ))}
-                </>
+        <div ref={listRef} className={`${styles.list} ${canDrop ? styles.listCanDrop : ''}`}>
+            {loading ? (
+                <div>Loading ...</div>
+            ) : (
+                constructor.map((item, index) => renderIngredient(item, index))  
             )}
-            <div className={styles.row}>
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text="Краторная булка N-200i (низ)"
-                    price={200}
-                    thumbnail={`/ingredient1.png`}
-                    extraClass={styles.item}
-                />
-            </div>
         </div>
     )
 }
