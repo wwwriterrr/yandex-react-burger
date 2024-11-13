@@ -8,13 +8,14 @@ type TProps = {
     inputs: JSX.Element[],
     btnText?: string,
     afterContent?: JSX.Element,
+    className?: string,
 }
 
-export const FormWrap: React.FC<TProps> = ({title, inputs, btnText, afterContent}) => {
+export const FormWrap: React.FC<TProps> = ({title, inputs, btnText, afterContent, className}) => {
     return (
-        <div className={styles.wrap}>
+        <div className={`${styles.wrap} ${className || ''}`}>
             <form className={styles.form}>
-                <h2>{title}</h2>
+                <h2 className={styles.title}>{title}</h2>
                 {inputs.length ? (
                     <>
                         {inputs.map((input, index) => (

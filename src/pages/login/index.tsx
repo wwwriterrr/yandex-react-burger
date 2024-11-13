@@ -2,6 +2,8 @@ import React, { ChangeEvent, useRef, useState } from "react"
 import { FormWrap } from "../../components/form-wrap"
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LoginAfterContent } from "./after-content";
+import styles from './login.module.css';
+import { PageHeader } from "../../components";
 
 
 export const LoginPage: React.FC = () => {
@@ -35,6 +37,7 @@ export const LoginPage: React.FC = () => {
             value={form.login}
             name={`login`}
             onChange={onChangeHandler}
+            required
         />,
         <Input 
             ref={passwdRef}
@@ -45,19 +48,23 @@ export const LoginPage: React.FC = () => {
             onChange={onChangeHandler}
             icon={icon}
             onIconClick={iconClickHandler}
+            required
         />
     ]
 
     const afterContent = <LoginAfterContent />
 
     return (
-        <div>
-            <FormWrap 
-                title={`Вход`} 
-                inputs={inputs} 
-                btnText={`Войти`} 
-                afterContent={afterContent}
-            />
+        <div className={styles.page}>
+            <PageHeader />
+            <div className={styles.form}>
+                <FormWrap 
+                    title={`Вход`} 
+                    inputs={inputs} 
+                    btnText={`Войти`} 
+                    afterContent={afterContent}
+                />
+            </div>
         </div>
     )
 }

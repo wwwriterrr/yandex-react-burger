@@ -1,9 +1,13 @@
 .wrap{
-
+    width: 480px;margin: 0 auto;
 }
 
 .form{
+    position: relative;display: flex;flex-direction: column;align-items: center;gap: 24px;
+}
 
+.title{
+    margin: 0;
 }
 
 .row{
@@ -11,5 +15,5 @@
 }
 
 .after{
-    
+    margin: 56px 0 0 0;
 }
