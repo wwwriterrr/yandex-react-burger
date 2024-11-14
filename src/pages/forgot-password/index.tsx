@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState } from "react";
-import styles from './register.module.css';
+import styles from './fp.module.css';
 import { PageHeader, PasswordInput } from "../../components";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormWrap } from "../../components/form-wrap";
-import { RegisterAfterContent } from "./after-content";
+import { ForgotAfterContent } from "./after-content";
 
 
-export const RegisterPage: React.FC = () => {
-    const [form, setForm] = useState({name: '', email: '', password: ''});
+export const ForgotPage: React.FC = () => {
+    const [form, setForm] = useState({password: '', code: ''});
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target as HTMLInputElement;
@@ -15,29 +15,21 @@ export const RegisterPage: React.FC = () => {
     }
 
     const inputs = [
-        <Input 
-            type={'text'}
-            placeholder={'Имя'} 
-            inputMode={`text`}
-            value={form.name}
-            name={`name`}
-            onChange={onChangeHandler}
-            required
-        />,
-        <Input 
-            type={'text'}
-            placeholder={'E-mail'} 
-            inputMode={`email`}
-            value={form.email}
-            name={`email`}
-            onChange={onChangeHandler}
-            required
-        />,
         <PasswordInput 
             value={form.password}
             name={'password'}
             onChange={onChangeHandler}
-        />
+            placeholder={'Введите новый пароль'} 
+        />,
+        <Input 
+            type={'text'}
+            placeholder={'Введите код из письма'} 
+            inputMode={`text`}
+            value={form.code}
+            name={`code`}
+            onChange={onChangeHandler}
+            required
+        />,
     ]
 
     return (
@@ -45,10 +37,10 @@ export const RegisterPage: React.FC = () => {
             <PageHeader />
             <div className={styles.form}>
                 <FormWrap 
-                    title={'Регистрация'}
+                    title={'Восстановление пароля'}
                     inputs={inputs} 
-                    btnText={'Зарегистрироваться'}
-                    afterContent={<RegisterAfterContent />}
+                    btnText={'Сохранить'}
+                    afterContent={<ForgotAfterContent />}
                 />
             </div>
         </div>

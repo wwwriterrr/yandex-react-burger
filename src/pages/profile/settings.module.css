@@ -1,0 +1,7 @@
+.form{
+    position: relative; display: flex;flex-direction: column;gap: 24px;width: 100%;
+}
+
+.after{
+    display: flex;align-items: center;justify-content: flex-end;gap: 14px;
+}

@@ -1,5 +1,6 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from './login.module.css';
+import { Link } from "react-router-dom";
 
 
 export const LoginAfterContent = () => {
@@ -7,11 +8,15 @@ export const LoginAfterContent = () => {
         <>
             <p className={styles.row}>
                 Вы — новый пользователь? 
-                <Button htmlType="button" type="secondary" size="small">Зарегистрироваться</Button>
+                <Link to={'/register'}>
+                    <Button htmlType="button" type="secondary" size="small">Зарегистрироваться</Button>
+                </Link>
             </p>
             <p className={styles.row}>
                 Забыли пароль? 
-                <Button htmlType="button" type="secondary" size="small">Восстановить пароль</Button>
+                <Link to={'/reset-password'}>
+                    <Button htmlType="button" type="secondary" size="small">Восстановить пароль</Button>
+                </Link>
             </p>
         </>
     )

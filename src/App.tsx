@@ -2,7 +2,12 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { 
   MainPage, 
-  LoginPage 
+  LoginPage,
+  RegisterPage,
+  ForgotPage,
+  ResetPage,
+  ProfilePage,
+  ProfileSettings,
 } from './pages';
 import { ModalContextProvider } from './contexts';
 import { ModalMiddleware } from './middlewares';
@@ -22,6 +27,12 @@ export const App: React.FC = () => {
               <Routes>
                 <Route path={`/`} element={<MainPage />} />
                 <Route path={`/login`} element={<LoginPage />} />
+                <Route path={`/register`} element={<RegisterPage />} />
+                <Route path={`/forgot-password`} element={<ForgotPage />} />
+                <Route path={`/reset-password`} element={<ResetPage />} />
+                <Route path={`/profile`} element={<ProfilePage />} >
+                  <Route path={`settings`} element={<ProfileSettings />} />
+                </Route>
               </Routes>
             </ModalMiddleware>
           </ModalContextProvider>
