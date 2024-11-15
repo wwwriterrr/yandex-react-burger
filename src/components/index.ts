@@ -5,3 +5,4 @@ export {BurgerConstructorTotal} from './burger-designer/constructor-total';
 export {IngredientsList} from './burger-designer/ingredients-list';
 export {Ingredient} from './burger-designer/ingredients-item';
 export {PasswordInput} from './inputs/password-input';
+export {Modal} from './modal';
