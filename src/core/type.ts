@@ -44,3 +44,9 @@ export type TIconProps = {
     fill?: string,
     classes?: string,
 }
+
+export type TUserData = {
+    name: string,
+    email: string,
+    avatar: string | null,
+}
