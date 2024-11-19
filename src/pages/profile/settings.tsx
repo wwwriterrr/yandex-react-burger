@@ -1,23 +1,38 @@
-import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
 import styles from './settings.module.css';
 import parentStyles from './profile.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import isEqual from 'lodash/isEqual';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { getUser } from '../../services/auth/auth-slice';
+import { authProfile } from '../../services/auth/auth-actions';
 
 
 export const ProfileSettings = () => {
+    const dispatch = useAppDispatch();
+
     const [changed, setChanged] = useState<boolean>(false);
 
-    const initialForm = {
-        name: 'name',
-        login: 'login',
-        password: 'P@ssw0rd'
-    }
+    const user = useAppSelector(getUser);
+
+    if(!user) return null;
+
+    // const [initialForm, setInitialForm] = useState({name: user.name, email: user.email, password: ''});
+
+    const initialForm = {name: user.name, email: user.email, password: ''};
 
     const [form, setForm] = useState(initialForm);
 
     const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
+
+        submit();
+    }
+
+    const submit = () => {
+        if(!form.email || !form.name || !form.password) return;
+
+        dispatch(authProfile({...form}));
     }
 
     const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -33,6 +48,10 @@ export const ProfileSettings = () => {
         if(!isEqual(initialForm, form)) setChanged(true);
         else setChanged(false);
     }, [form])
+
+    useEffect(() => {
+        setForm({name: user.name, email: user.email, password: ''});
+    }, [user])
 
     return (
         <>
@@ -51,8 +70,8 @@ export const ProfileSettings = () => {
                     type={'text'}
                     placeholder={'Логин'} 
                     inputMode={`text`}
-                    value={form.login}
-                    name={`login`}
+                    value={form.email}
+                    name={`email`}
                     onChange={changeHandler}
                     icon={`EditIcon`}
                     required
@@ -73,7 +92,7 @@ export const ProfileSettings = () => {
                     <Button htmlType={'button'} type="secondary" size="small" onClick={resetHandler}>
                         Отмена
                     </Button>
-                    <Button htmlType={'submit'} type="primary" size="medium">
+                    <Button htmlType={'button'} type="primary" size="medium" onClick={submit}>
                         Сохранить
                     </Button>
                 </div>

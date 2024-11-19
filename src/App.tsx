@@ -1,32 +1,28 @@
-import React, { useEffect } from 'react'
+import type { FC } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ModalContextProvider } from './contexts';
 import { ModalMiddleware } from './middlewares';
 import { Provider } from 'react-redux';
-import { store, useAppDispatch } from './services/store';
+import { store } from './services/store';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { AppRoutes } from './routes';
-import { checkUserAuth } from './services/auth/auth-actions';
+import { AuthHOC } from './components/auth-hoc';
 
 
-export const App: React.FC = () => {
-	const dispatch = useAppDispatch();
-
-	useEffect(() => {
-		dispatch(checkUserAuth());
-	}, [])
-
+export const App: FC = () => {
 	return (
 		<Router>
 			<Provider store={store}>
-				<DndProvider backend={HTML5Backend}>
-					<ModalContextProvider>
-						<ModalMiddleware>
-							<AppRoutes />
-						</ModalMiddleware>
-					</ModalContextProvider>
-				</DndProvider>
+				<AuthHOC>
+					<DndProvider backend={HTML5Backend}>
+						<ModalContextProvider>
+							<ModalMiddleware>
+								<AppRoutes />
+							</ModalMiddleware>
+						</ModalContextProvider>
+					</DndProvider>
+				</AuthHOC>
 			</Provider>
 		</Router>
 	)

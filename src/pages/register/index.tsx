@@ -1,17 +1,29 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import styles from './register.module.css';
 import { PageHeader, PasswordInput } from "../../components";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormWrap } from "../../components/form-wrap";
 import { RegisterAfterContent } from "./after-content";
+import { useAppDispatch } from "../../services/store";
+import { authRegister } from "../../services/auth/auth-actions";
 
 
 export const RegisterPage: React.FC = () => {
+    const dispatch = useAppDispatch();
+
     const [form, setForm] = useState({name: '', email: '', password: ''});
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target as HTMLInputElement;
         setForm({...form, [input.name]: input.value})
+    }
+
+    const submitHandler = (e: FormEvent) => {
+        e.preventDefault();
+
+        if(!form.name || !form.email || !form.password) return;
+
+        dispatch(authRegister({...form}));
     }
 
     const inputs = [
@@ -49,6 +61,7 @@ export const RegisterPage: React.FC = () => {
                     inputs={inputs} 
                     btnText={'Зарегистрироваться'}
                     afterContent={<RegisterAfterContent />}
+                    onSubmit={submitHandler}
                 />
             </div>
         </div>

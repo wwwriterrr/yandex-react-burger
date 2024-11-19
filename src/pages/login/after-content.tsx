@@ -14,7 +14,7 @@ export const LoginAfterContent = () => {
             </p>
             <p className={styles.row}>
                 Забыли пароль? 
-                <Link to={'/reset-password'}>
+                <Link to={'/forgot-password'}>
                     <Button htmlType="button" type="secondary" size="small">Восстановить пароль</Button>
                 </Link>
             </p>

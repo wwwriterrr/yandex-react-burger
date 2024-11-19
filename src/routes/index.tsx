@@ -9,9 +9,11 @@ import {
 	ProfilePage,
 	ProfileSettings,
 	OrdersList,
+    LogoutPage,
 } from '../pages';
 import { IngredientDetail } from '../components/burger-designer/ingredients-modal';
 import { Modal, PageHeader } from '../components';
+import { OnlyAuth, OnlyUnAuth } from '../components/protected-route';
 
 
 export const AppRoutes: FC = () => {
@@ -27,11 +29,12 @@ export const AppRoutes: FC = () => {
         <>
             <Routes location={background || location}>
                 <Route path={`/`} element={<MainPage />} />
-                <Route path={`/login`} element={<LoginPage />} />
-                <Route path={`/register`} element={<RegisterPage />} />
-                <Route path={`/forgot-password`} element={<ForgotPage />} />
-                <Route path={`/reset-password`} element={<ResetPage />} />
-                <Route path={`/profile`} element={<ProfilePage />} >
+                <Route path={`/login`} element={<OnlyUnAuth component={<LoginPage />} />} />
+                <Route path={`/logout`} element={<OnlyAuth component={<LogoutPage />} />} />
+                <Route path={`/register`} element={<OnlyUnAuth component={<RegisterPage />} />} />
+                <Route path={`/reset-password`} element={<OnlyUnAuth component={<ForgotPage />} />} />
+                <Route path={`/forgot-password`} element={<OnlyUnAuth component={<ResetPage />} />} />
+                <Route path={`/profile`} element={<OnlyAuth component={<ProfilePage />} />} >
                     <Route path={`settings`} element={<ProfileSettings />} />
                     <Route path={`orders`} element={<OrdersList />} />
                 </Route>

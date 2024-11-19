@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { TUserData } from "../../core/type";
+import { authLogin, authLogout, authProfile, authRegister } from "./auth-actions";
 
 
 type TAuthInitialState = {
@@ -30,8 +31,32 @@ export const authSlice = createSlice({
         getUser: state => state.user,
     },
     extraReducers: (builder) => {
-        // builder
-            
+        builder
+            // Login actions
+            .addCase(authLogin.rejected, (state) => {
+                state.user = null;
+            })
+            .addCase(authLogin.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+
+            // Logout actions
+            .addCase(authLogout.fulfilled, (state) => {
+                state.user = null;
+            })
+
+            // Register actions
+            .addCase(authRegister.rejected, (state) => {
+                state.user = null;
+            })
+            .addCase(authRegister.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+
+            // Profile actions
+            .addCase(authProfile.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
     }
 })
 

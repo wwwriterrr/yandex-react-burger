@@ -1,17 +1,29 @@
-import React, { ChangeEvent, useState } from "react"
+import React, { ChangeEvent, FormEvent, useState } from "react"
 import { FormWrap } from "../../components/form-wrap"
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LoginAfterContent } from "./after-content";
 import styles from './login.module.css';
 import { PageHeader, PasswordInput } from "../../components";
+import { useAppDispatch } from "../../services/store";
+import { authLogin } from "../../services/auth/auth-actions";
 
 
 export const LoginPage: React.FC = () => {
+    const dispatch = useAppDispatch();
+
     const [form, setForm] = useState({login: '', password: ''});
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target as HTMLInputElement;
         setForm({...form, [input.name]: input.value})
+    }
+
+    const submitHandler = (e: FormEvent) => {
+        e.preventDefault();
+
+        if(!form.login || !form.password) return;
+
+        dispatch(authLogin({email: form.login, password: form.password}));
     }
 
     const inputs = [
@@ -42,6 +54,7 @@ export const LoginPage: React.FC = () => {
                     inputs={inputs} 
                     btnText={`Войти`} 
                     afterContent={afterContent}
+                    onSubmit={submitHandler}
                 />
             </div>
         </div>

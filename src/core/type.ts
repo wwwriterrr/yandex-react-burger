@@ -48,5 +48,11 @@ export type TIconProps = {
 export type TUserData = {
     name: string,
     email: string,
-    avatar: string | null,
+}
+
+export type TLoginData = {
+    success: boolean,
+    accessToken: string,
+    refreshToken: string,
+    user: TUserData
 }
