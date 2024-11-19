@@ -21,3 +21,6 @@ const getUser = async () => {
     }
 }
 
+export const api = {
+    getUser,
+}
