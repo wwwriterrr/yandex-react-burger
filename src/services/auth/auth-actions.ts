@@ -7,9 +7,20 @@ export const checkUserAuth = createAsyncThunk(
     'auth/checkUserAuth',
     async (_, {dispatch}) => {
         if (localStorage.getItem("accessToken")) {
-            api.getUser()
+            try{
+                const data = await api.getUser();
+
+                dispatch(setUser(data.user));
+            }catch(err){
+                console.log(`Error with fetch user data: ${err}`);
+            }
+
+            dispatch(setIsAuthChecked(true));
+
+            /* api.getUser()
                 .then(data => dispatch(setUser(data.user)))
-                .finally(() => dispatch(setIsAuthChecked(true)))
+                .catch((err) => console.log(`Error with fetch user data: ${err}`))
+                .finally(() => dispatch(setIsAuthChecked(true))) */
         }else{
             dispatch(setIsAuthChecked(true));
         }

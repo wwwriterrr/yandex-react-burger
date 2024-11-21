@@ -1,19 +1,71 @@
-import { string } from "prop-types";
 import { apiUrl } from "../../core/constants";
 import { TLoginData } from "../../core/type";
 import { checkResponse } from "../../core/utils";
 
 
+const RefreshToken = async (token: string) => {
+    try{
+        const response = await fetch(`${apiUrl}/auth/token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `${localStorage.getItem('refreshToken')}`,
+            },
+            body: JSON.stringify({token})
+        });
+
+        if(!response.ok) return '';
+
+        const data: {success: boolean, accessToken: string, refreshToken: string} = await response.json();
+
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+
+        return data.accessToken;
+    }catch (err){
+        return '';
+    }
+}
+
+const AppFetch = async (url: string | URL | globalThis.Request, options?: RequestInit) => {
+    try{
+        let response = await fetch(url, options);
+
+        if(!response.ok && response.status === 401){
+            // Refresh token and repeat fetch
+
+            const refreshToken = localStorage.getItem('refreshToken');
+
+            if(!refreshToken) return response;
+
+            const newAccessToken: string = await RefreshToken(refreshToken);
+
+            if(!newAccessToken) return response;
+
+            const newOptions = {...options, headers: {...options?.headers, 'Authorization': newAccessToken}};
+
+            response = await fetch(url, newOptions);
+
+            return response;
+        }
+
+        return response;
+    }catch (err) {
+        return Promise.reject((err as Error).message || 'App fetch error');
+    }
+}
+
 const getUser = async () => {
     try{
-        const response = await fetch(`${apiUrl}/auth/user`, {
+        // const response = await fetch(`${apiUrl}/auth/user`, {
+        const response = await AppFetch(`${apiUrl}/auth/user`, {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': `${localStorage.getItem('accessToken')}`,
             }
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         const data: TLoginData = await response.json();
 
@@ -29,7 +81,7 @@ const Login = async ({email, password}: {email: string, password: string}) => {
     }
 
     try{
-        const response = await fetch(`${apiUrl}/auth/login`, {
+        const response = await AppFetch(`${apiUrl}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -38,7 +90,7 @@ const Login = async ({email, password}: {email: string, password: string}) => {
             body: JSON.stringify({email, password})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         const data: TLoginData = await response.json();
 
@@ -50,15 +102,15 @@ const Login = async ({email, password}: {email: string, password: string}) => {
 
 const Logout = async () => {
     try{
-        const response = await fetch(`${apiUrl}/auth/logout`, {
+        const response = await AppFetch(`${apiUrl}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `${localStorage.getItem('refreshToken')}`,
-            }
+            },
+            body: JSON.stringify({token: localStorage.getItem('refreshToken')})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         return;
     }catch (err){
@@ -72,7 +124,7 @@ const Register = async ({name, email, password}: {name: string, email: string, p
     }
 
     try{
-        const response = await fetch(`${apiUrl}/auth/register`, {
+        const response = await AppFetch(`${apiUrl}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -81,7 +133,7 @@ const Register = async ({name, email, password}: {name: string, email: string, p
             body: JSON.stringify({name, email, password})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         const data: TLoginData = await response.json();
 
@@ -97,7 +149,7 @@ const SaveProfile = async ({name, email, password}: {name: string, email: string
     }
 
     try{
-        const response = await fetch(`${apiUrl}/auth/user`, {
+        const response = await AppFetch(`${apiUrl}/auth/user`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -107,7 +159,7 @@ const SaveProfile = async ({name, email, password}: {name: string, email: string
             body: JSON.stringify({name, email, password})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         const data: TLoginData = await response.json();
 
@@ -119,7 +171,7 @@ const SaveProfile = async ({name, email, password}: {name: string, email: string
 
 const ForgotPassword = async ({email}: {email: string}) => {
     try{
-        const response = await fetch(`${apiUrl}/password-reset`, {
+        const response = await AppFetch(`${apiUrl}/password-reset`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -128,7 +180,7 @@ const ForgotPassword = async ({email}: {email: string}) => {
             body: JSON.stringify({email})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         return;
     }catch (err){
@@ -138,7 +190,7 @@ const ForgotPassword = async ({email}: {email: string}) => {
 
 const ResetPassword = async ({password, token}: {password: string, token: string}) => {
     try{
-        const response = await fetch(`${apiUrl}/password-reset/reset`, {
+        const response = await AppFetch(`${apiUrl}/password-reset/reset`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -147,7 +199,7 @@ const ResetPassword = async ({password, token}: {password: string, token: string
             body: JSON.stringify({password, token})
         });
 
-        checkResponse(response);
+        await checkResponse(response);
 
         return;
     }catch (err){

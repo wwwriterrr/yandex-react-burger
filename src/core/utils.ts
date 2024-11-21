@@ -18,10 +18,14 @@ export const translateGroup = (title: string) => {
     }
 }
 
-export const checkResponse = (response: Response) => {
+export const checkResponse = async (response: Response) => {
     if(!response.ok){
-        return response.json().then((text) => {
-            return Promise.reject(text.reason || 'Error with fetch');
-        });
+        /* try{
+            const data = await response.json();
+            return Promise.reject(data.message || 'Error with fetch');
+        }catch (err){
+            return Promise.reject((err as Error).message || 'Error with fetch');
+        } */
+        return Promise.reject(`Error with fetch. Status ${response.status}`);
     }
 }
