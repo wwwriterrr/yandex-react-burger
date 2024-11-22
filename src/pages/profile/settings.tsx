@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getUser } from '../../services/auth/auth-slice';
 import { authProfile } from '../../services/auth/auth-actions';
-import { TUserData } from '../../core/type';
+import type { TUserData } from '../../core/type';
 
 
 export const ProfileSettings = () => {
@@ -14,9 +14,9 @@ export const ProfileSettings = () => {
 
     const [changed, setChanged] = useState<boolean>(false);
 
-    const user: TUserData = useAppSelector(getUser) || {name: '', email: ''};
+    const [error, setError] = useState<string | null>(null);
 
-    // const [initialForm, setInitialForm] = useState({name: user.name, email: user.email, password: ''});
+    const user: TUserData = useAppSelector(getUser) || {name: '', email: ''};
 
     const initialForm = {name: user.name, email: user.email, password: ''};
 
@@ -25,21 +25,25 @@ export const ProfileSettings = () => {
     const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        submit();
-    }
+        setError(null);
 
-    const submit = () => {
-        if(!form.email || !form.name || !form.password) return;
+        // Проверяем, чтобы не пропустить события дальше на этом этапе
+        if(!form.email || !form.name || !form.password){
+            setError('All required fields must be filled in!');
+            return;
+        }
 
         dispatch(authProfile({...form}));
     }
 
     const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
+        setError(null);
         const input = e.target as HTMLInputElement;
         setForm({...form, [input.name]: input.value});
     }
 
     const resetHandler = () => {
+        setError(null);
         setForm(initialForm);
     }
 
@@ -54,7 +58,16 @@ export const ProfileSettings = () => {
 
     return (
         <>
-            <form className={styles.form} onSubmit={submitHandler}>
+            <form 
+                className={styles.form} 
+                onSubmit={submitHandler}
+                onReset={resetHandler}
+            >
+                {error ? (
+                    <div className={styles.error}>
+                        {error}
+                    </div>
+                ) : null}
                 <Input 
                     type={'text'}
                     placeholder={'Имя'} 
@@ -63,7 +76,6 @@ export const ProfileSettings = () => {
                     name={`name`}
                     onChange={changeHandler}
                     icon={`EditIcon`}
-                    required
                 />
                 <Input 
                     type={'text'}
@@ -73,7 +85,6 @@ export const ProfileSettings = () => {
                     name={`email`}
                     onChange={changeHandler}
                     icon={`EditIcon`}
-                    required
                 />
                 <Input 
                     type={'password'}
@@ -83,19 +94,18 @@ export const ProfileSettings = () => {
                     name={`password`}
                     onChange={changeHandler}
                     icon={`EditIcon`}
-                    required
                 />
+                {changed && (
+                    <div className={styles.row}>
+                        <Button htmlType={'reset'} type="secondary" size="small">
+                            Отмена
+                        </Button>
+                        <Button htmlType={'submit'} type="primary" size="medium">
+                            Сохранить
+                        </Button>
+                    </div>
+                )}
             </form>
-            {changed && (
-                <div className={parentStyles.manage}>
-                    <Button htmlType={'button'} type="secondary" size="small" onClick={resetHandler}>
-                        Отмена
-                    </Button>
-                    <Button htmlType={'button'} type="primary" size="medium" onClick={submit}>
-                        Сохранить
-                    </Button>
-                </div>
-            )}
             <div className={parentStyles.after}>
                 В этом разделе вы можете изменить свои персональные данные
             </div>
