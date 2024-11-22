@@ -1,4 +1,5 @@
-export function groupBy<T extends Record<string, any>>(xs: T[], key: string): Record<string, T[]> {
+
+export function groupBy<T extends Record<string, string>>(xs: T[], key: string): Record<string, T[]> {
     return xs.reduce((result, item) => {
         const value = item[key];
         if (!result[value]) {
