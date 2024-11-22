@@ -1,0 +1,15 @@
+.form{
+    position: relative; display: flex;flex-direction: column;gap: 24px;width: 100%;
+}
+
+.error{
+    color: #ff6565;padding: 0 26px;
+}
+
+.row{
+    display: flex;justify-content: flex-end;align-items: center;gap: 10px;
+}
+
+.after{
+    display: flex;align-items: center;justify-content: flex-end;gap: 14px;
+}

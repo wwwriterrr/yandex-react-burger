@@ -153,15 +153,11 @@ export const ingredientsSlice = createSlice({
                 state.ingredients = action.payload;
 
                 const firstBun = action.payload.filter(item => item.type === 'bun')[0];
-                const oneMain = action.payload.filter(item => item.type === 'main')[0];
-                const oneSauce = action.payload.filter(item => item.type === 'sauce')[0];
 
-                if(!firstBun || !oneMain || !oneSauce) return;
+                if(!firstBun) return;
 
                 state.constructor = [
                     {...firstBun, rowId: generateId()}, 
-                    {...oneMain, rowId: generateId()}, 
-                    {...oneSauce, rowId: generateId()}, 
                     {...firstBun, rowId: generateId()}
                 ];
             })
@@ -179,15 +175,11 @@ export const ingredientsSlice = createSlice({
                 if(!state.ingredients.length) return;
 
                 const firstBun = state.ingredients.filter(item => item.type === 'bun')[0];
-                const oneMain = state.ingredients.filter(item => item.type === 'main')[0];
-                const oneSauce = state.ingredients.filter(item => item.type === 'sauce')[0];
 
-                if(!firstBun || !oneMain || !oneSauce) return;
+                if(!firstBun) return;
 
                 state.constructor = [
                     {...firstBun, rowId: generateId()}, 
-                    {...oneMain, rowId: generateId()}, 
-                    {...oneSauce, rowId: generateId()}, 
                     {...firstBun, rowId: generateId()}
                 ];
             })

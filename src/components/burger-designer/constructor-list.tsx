@@ -22,8 +22,7 @@ export const BurgerConstructorList = () => {
 
             if(!hoverBoundingRect) return;
     
-            const hoverMiddleY =
-                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     
             const clientOffset = monitor.getClientOffset();
     
