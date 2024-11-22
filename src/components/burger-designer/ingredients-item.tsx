@@ -18,7 +18,8 @@ export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient})
 
     const {_id, name, image, price} = ingredient;
 
-    const ref = useRef<HTMLDivElement>(null);
+    // const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLAnchorElement>(null);
 
     const dispatch = useAppDispatch();
 
@@ -49,13 +50,14 @@ export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient})
 
     return (
         <Link 
+            ref={ref}
             key={_id}
             to={`/ingredients/${_id}`}
             state={{ background: location }}
             className={styles.link}
         >
             <div 
-                ref={ref} 
+                // ref={ref} 
                 className={styles.ingredient} 
                 style={{opacity: isDragging ? .2 : 1}}
             >
