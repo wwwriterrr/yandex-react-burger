@@ -1,9 +1,13 @@
-export const groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-        (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
-    }, {});
-};
+export function groupBy<T extends Record<string, any>>(xs: T[], key: string): Record<string, T[]> {
+    return xs.reduce((result, item) => {
+        const value = item[key];
+        if (!result[value]) {
+            result[value] = [];
+        }
+        result[value].push(item);
+        return result;
+    }, {} as Record<string, T[]>);
+}
 
 export const translateGroup = (title: string) => {
     switch(title){
@@ -20,12 +24,6 @@ export const translateGroup = (title: string) => {
 
 export const checkResponse = async (response: Response) => {
     if(!response.ok){
-        /* try{
-            const data = await response.json();
-            return Promise.reject(data.message || 'Error with fetch');
-        }catch (err){
-            return Promise.reject((err as Error).message || 'Error with fetch');
-        } */
         return Promise.reject(`Error with fetch. Status ${response.status}`);
     }
 }
