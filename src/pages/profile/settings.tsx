@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useEffect, useRef, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react';
 import styles from './settings.module.css';
 import parentStyles from './profile.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,6 +6,7 @@ import isEqual from 'lodash/isEqual';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getUser } from '../../services/auth/auth-slice';
 import { authProfile } from '../../services/auth/auth-actions';
+import { TUserData } from '../../core/type';
 
 
 export const ProfileSettings = () => {
@@ -13,9 +14,7 @@ export const ProfileSettings = () => {
 
     const [changed, setChanged] = useState<boolean>(false);
 
-    const user = useAppSelector(getUser);
-
-    if(!user) return null;
+    const user: TUserData = useAppSelector(getUser) || {name: '', email: ''};
 
     // const [initialForm, setInitialForm] = useState({name: user.name, email: user.email, password: ''});
 
