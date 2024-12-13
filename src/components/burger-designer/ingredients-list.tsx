@@ -1,5 +1,5 @@
 import styles from './ingredients.module.css';
-import React, { RefObject, useEffect, useState } from 'react';
+import React, { type FC, type RefObject, useEffect, useState } from 'react';
 import { TApiIngredient, TApiIngredientGroup } from '../../core/type';
 import { Ingredient } from './ingredients-item';
 import { IngredientsSkeleton } from './ingredients-skeleton';
@@ -7,8 +7,7 @@ import { groupBy, translateGroup } from '../../core/utils';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getIngredients } from '../../services/ingredients/ingredientsSlice';
 
-
-export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
+export const IngredientsList: FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
     const [ingredientsGroups, setIngredientsGroups] = useState<TApiIngredientGroup | null>(null);
 
     const dispatch = useAppDispatch();
@@ -23,7 +22,8 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
 
     useEffect(() => {
         if(ingredients.length){
-            setIngredientsGroups(groupBy(ingredients, 'type') as TApiIngredientGroup);
+            const groups: TApiIngredientGroup = groupBy(ingredients, 'type');
+            setIngredientsGroups(groups);
         }else{
             setIngredientsGroups(null);
         }

@@ -1,6 +1,5 @@
 import styles from './ingredients-skeleton.module.css';
 
-
 export const IngredientsSkeleton = () => {
     return (
         <div className={styles.wrap}>

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { type ChangeEventHandler, type FC, type FormEventHandler, useEffect, useState } from 'react';
 import styles from './settings.module.css';
 import parentStyles from './profile.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,7 +9,7 @@ import { authProfile } from '../../services/auth/auth-actions';
 import type { TUserData } from '../../core/type';
 
 
-export const ProfileSettings = () => {
+export const ProfileSettings: FC = () => {
     const dispatch = useAppDispatch();
 
     const [changed, setChanged] = useState<boolean>(false);

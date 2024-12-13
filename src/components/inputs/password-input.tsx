@@ -1,6 +1,5 @@
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components"
-import React, {ChangeEvent, useRef, useState} from "react"
-
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import {type FC, ChangeEvent, useRef, useState} from 'react';
 
 type TProps = {
     value: string,
@@ -9,7 +8,7 @@ type TProps = {
     placeholder?: string,
 }
 
-export const PasswordInput: React.FC<TProps> = ({value, name, onChange, placeholder}) => {
+export const PasswordInput: FC<TProps> = ({value, name, onChange, placeholder}) => {
     const passwdRef = useRef<HTMLInputElement>(null);
 
     const [passwdType, setPasswdType] = useState<'password' | 'text'>('password');

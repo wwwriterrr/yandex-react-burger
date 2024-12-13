@@ -1,15 +1,14 @@
-import React, { ChangeEvent, FormEvent, useState } from "react"
-import { FormWrap } from "../../components/form-wrap"
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ResetAfterContent } from "./after-content";
+import { type FC, ChangeEvent, FormEvent, useState } from 'react';
+import { FormWrap } from '../../components/form-wrap';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ResetAfterContent } from './after-content';
 import styles from './rp.module.css';
-import { PageHeader } from "../../components";
-import { useAppDispatch } from "../../services/store";
-import { authForgotPassword } from "../../services/auth/auth-actions";
-import { useNavigate } from "react-router-dom";
+import { PageHeader } from '../../components';
+import { useAppDispatch } from '../../services/store';
+import { authForgotPassword } from '../../services/auth/auth-actions';
+import { useNavigate } from 'react-router-dom';
 
-
-export const ResetPage: React.FC = () => {
+export const ResetPage: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 

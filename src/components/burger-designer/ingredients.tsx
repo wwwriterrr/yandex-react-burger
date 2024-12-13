@@ -1,10 +1,9 @@
 import styles from './ingredients.module.css';
 import { IngredientsList } from './ingredients-list';
 import { IngredientsTabs } from './ingredients-tabs';
-import { useRef } from 'react';
+import { type FC, useRef } from 'react';
 
-
-export const Ingredients = () => {
+export const Ingredients: FC = () => {
     const listRef = useRef<HTMLDivElement>(null);
 
     return (

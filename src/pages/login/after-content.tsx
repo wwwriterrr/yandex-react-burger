@@ -1,9 +1,10 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { type FC } from 'react';
 
 
-export const LoginAfterContent = () => {
+export const LoginAfterContent: FC = () => {
     return (
         <>
             <p className={styles.row}>

@@ -1,9 +1,9 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './rp.module.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { type FC } from 'react';
 
-
-export const ResetAfterContent = () => {
+export const ResetAfterContent: FC = () => {
     return (
         <p className={styles.row}>
             Вспомнили пароль? 

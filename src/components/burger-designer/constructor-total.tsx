@@ -1,14 +1,13 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css';
-import React, { useEffect, useState } from 'react';
+import {type FC, useEffect, useState } from 'react';
 import { useModalContext } from '../../contexts';
 import { TotalModal } from './total-modal';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { createOrder, TOrderResponse } from '../../services/ingredients/ingredientsSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-
-export const BurgerConstructorTotal: React.FC = () => {
+export const BurgerConstructorTotal: FC = () => {
     const [total, setTotal] = useState<number>(0);
 
     const dispatch = useAppDispatch();

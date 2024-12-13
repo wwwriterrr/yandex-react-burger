@@ -3,7 +3,6 @@ import { useState, useContext } from 'react';
 import { useAppDispatch } from '../services/store';
 import { setActiveIngredient } from '../services/ingredients/ingredientsSlice';
 
-
 type TModalContext = {
     modalContent: ReactNode,
     setModalContent: React.Dispatch<React.SetStateAction<ReactNode>>,

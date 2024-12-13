@@ -1,7 +1,7 @@
+import { type FC } from 'react';
 import styles from './footer.module.css';
 
-
-export const PageFooter = () => {
+export const PageFooter: FC = () => {
     return (
         <footer className={styles.footer}>
             <div className={styles.text}>powered by</div>

@@ -1,11 +1,10 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
-import React, { RefObject, useEffect, useState } from 'react';
+import { type FC, RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { translateGroup } from '../../core/utils';
 
-
-export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
+export const IngredientsTabs: FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
     const [current, setCurrent] = useState<string | null>(null);
     const [tabs, setTabs] = useState<string[]>([]);
 

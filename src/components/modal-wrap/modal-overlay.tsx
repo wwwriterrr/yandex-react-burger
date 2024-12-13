@@ -1,9 +1,8 @@
-import React from "react";
+import { type FC } from 'react';
 import styles from './modal.module.css';
-import { useModalContext } from "../../contexts";
+import { useModalContext } from '../../contexts';
 
-
-export const ModalOverlay: React.FC = () => {
+export const ModalOverlay: FC = () => {
     const {closeModal} = useModalContext();
 
     const overlayClickHandler = () => {
