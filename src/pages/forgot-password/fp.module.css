@@ -1,0 +1,11 @@
+.page{
+    position: relative;width: 100%;min-height: 100vh;
+}
+
+.form{
+    position: relative;display: flex;align-items: center;justify-content: center;padding: 40px;margin: 100px 0 0 0;
+}
+
+.row{
+    margin: 0;text-align: center;
+}

@@ -44,3 +44,15 @@ export type TIconProps = {
     fill?: string,
     classes?: string,
 }
+
+export type TUserData = {
+    name: string,
+    email: string,
+}
+
+export type TLoginData = {
+    success: boolean,
+    accessToken: string,
+    refreshToken: string,
+    user: TUserData
+}

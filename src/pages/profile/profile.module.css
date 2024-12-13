@@ -1,0 +1,24 @@
+.page{
+    position: relative;
+}
+
+.wrap{
+    width: 1000px;margin: 100px auto 0 auto;
+    display: grid;grid-template: 'nav outlet' auto 'text manage' auto / fit-content(320px) 480px;grid-gap: 30px 30px;
+}
+
+.nav{
+    grid-area: nav;
+}
+
+.outlet{
+    grid-area: outlet;
+}
+
+.after{
+    grid-area: text;color: #8585AD;font-size: .9em; line-height: 1.8em;
+}
+
+.manage{
+    grid-area: manage;justify-self: end;
+}
