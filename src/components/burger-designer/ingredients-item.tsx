@@ -1,24 +1,17 @@
-import React, { useRef } from 'react';
+import { type FC, useRef } from 'react';
 import styles from './ingredients.module.css';
-import { TApiIngredient } from '../../core/type';
+import { IDropResult, type TApiIngredient } from '../../core/type';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useDrag } from 'react-dnd';
 import { addToConstructor, replaceConstructorBun } from '../../services/ingredients/ingredientsSlice';
 import { Link, useLocation } from 'react-router-dom';
 
-
-interface DropResult {
-    name: string,
-    pos: 'top' | 'bottom',
-}
-
-export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient}) => {
+export const Ingredient: FC<{ingredient: TApiIngredient}> = ({ingredient}) => {
     const location = useLocation();
 
     const {_id, name, image, price} = ingredient;
 
-    // const ref = useRef<HTMLDivElement>(null);
     const ref = useRef<HTMLAnchorElement>(null);
 
     const dispatch = useAppDispatch();
@@ -35,7 +28,7 @@ export const Ingredient: React.FC<{ingredient: TApiIngredient}> = ({ingredient})
             handlerId: monitor.getHandlerId(),
         }),
         end: (item, monitor) => {
-            const dropResult = monitor.getDropResult<DropResult>();
+            const dropResult = monitor.getDropResult<IDropResult>();
             if (item && dropResult && dropResult.name === 'constructor') {
                 if(item.type === 'bun'){
                     dispatch(replaceConstructorBun({pos: dropResult.pos, ingredientId: item.id}));

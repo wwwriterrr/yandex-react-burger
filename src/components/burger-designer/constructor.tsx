@@ -1,12 +1,11 @@
-import React from "react";
+import {type FC} from 'react';
 import styles from './constructor.module.css';
 import { 
     BurgerConstructorList, 
     BurgerConstructorTotal 
-} from "../../components";
+} from '../../components';
 
-
-export const BurgerConstruktor: React.FC = () => {
+export const BurgerConstruktor: FC = () => {
     return (
         <div className={styles.wrap}>
             <BurgerConstructorList />

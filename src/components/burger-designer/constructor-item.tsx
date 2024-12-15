@@ -1,12 +1,11 @@
-import React, { useRef } from 'react';
+import { type FC, useRef } from 'react';
 import styles from './constructor.module.css';
-import { TApiIngredient } from '../../core/type';
+import type { TApiIngredient } from '../../core/type';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../services/store';
 import { moveConstructorItem, removeConstructorItem } from '../../services/ingredients/ingredientsSlice';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
-
 
 type TProps = {
     ingredient: TApiIngredient & {rowId: string},
@@ -20,7 +19,7 @@ interface DragItem {
     type: string,
 }
 
-export const ConstructorItem: React.FC<TProps> = ({
+export const ConstructorItem: FC<TProps> = ({
     ingredient, 
     constructorLength, 
     index

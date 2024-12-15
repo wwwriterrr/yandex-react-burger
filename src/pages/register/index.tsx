@@ -1,14 +1,13 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { type FC, ChangeEvent, FormEvent, useState } from 'react';
 import styles from './register.module.css';
-import { PageHeader, PasswordInput } from "../../components";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FormWrap } from "../../components/form-wrap";
-import { RegisterAfterContent } from "./after-content";
-import { useAppDispatch } from "../../services/store";
-import { authRegister } from "../../services/auth/auth-actions";
+import { PageHeader, PasswordInput } from '../../components';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FormWrap } from '../../components/form-wrap';
+import { RegisterAfterContent } from './after-content';
+import { useAppDispatch } from '../../services/store';
+import { authRegister } from '../../services/auth/auth-actions';
 
-
-export const RegisterPage: React.FC = () => {
+export const RegisterPage: FC = () => {
     const dispatch = useAppDispatch();
 
     const [form, setForm] = useState({name: '', email: '', password: ''});

@@ -1,11 +1,10 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
-import React, { RefObject, useEffect, useState } from 'react';
+import React, { type FC, RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { translateGroup } from '../../core/utils';
 
-
-export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
+export const IngredientsTabs = React.forwardRef<HTMLDivElement>((_, ref) => {
     const [current, setCurrent] = useState<string | null>(null);
     const [tabs, setTabs] = useState<string[]>([]);
 
@@ -29,7 +28,7 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
     }, [ingredients]);
 
     useEffect(() => {
-        const list = listRef.current;
+        const list = (ref as RefObject<HTMLDivElement>).current;
 
         if(!list) return;
 
@@ -37,7 +36,7 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
             const scrollTop = list.scrollTop;
             const containerOffset = (list.clientHeight as number) / 2;
             if(!scrollTop || !containerOffset) return;
-            const titles = list.querySelectorAll('h3');
+            const titles: NodeListOf<HTMLHeadingElement> = list.querySelectorAll('h3');
 
             titles?.forEach((title) => {
                 const type = title.getAttribute('data-type');
@@ -53,13 +52,13 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
         return () => {
             list.removeEventListener('scroll', scrollHandler);
         }
-    }, [listRef, ingredients])
+    }, [ref, ingredients])
 
     const tabClickHandler = (value: string) => {
         setCurrent(value);
 
         const tabTitle = document.getElementById(`group-${value}`);
-        const container = listRef.current;
+        const container = (ref as RefObject<HTMLDivElement>).current;
         if(!tabTitle || !container) return;
 
         container?.scrollTo({top: tabTitle.offsetTop, behavior: 'smooth'});
@@ -82,4 +81,4 @@ export const IngredientsTabs: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
             )}
         </div>
     )
-}
+})

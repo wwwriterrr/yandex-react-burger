@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import { type FC, useEffect } from 'react';
 import { useModalContext } from '../../contexts';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ModalOverlay } from './modal-overlay';
 
-
-export const ModalWrap: React.FC = () => {
+export const ModalWrap: FC = () => {
     const {modalContent, modalTitle, closeModal} = useModalContext();
 
     const closeClickHandler = () => {

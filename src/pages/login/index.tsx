@@ -1,14 +1,14 @@
-import React, { ChangeEvent, FormEvent, useState } from "react"
-import { FormWrap } from "../../components/form-wrap"
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { LoginAfterContent } from "./after-content";
+import { type FC, type ChangeEvent, type FormEvent, useState } from 'react'
+import { FormWrap } from '../../components/form-wrap';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { LoginAfterContent } from './after-content';
 import styles from './login.module.css';
-import { PageHeader, PasswordInput } from "../../components";
-import { useAppDispatch } from "../../services/store";
-import { authLogin } from "../../services/auth/auth-actions";
+import { PageHeader, PasswordInput } from '../../components';
+import { useAppDispatch } from '../../services/store';
+import { authLogin } from '../../services/auth/auth-actions';
 
 
-export const LoginPage: React.FC = () => {
+export const LoginPage: FC = () => {
     const dispatch = useAppDispatch();
 
     const [form, setForm] = useState({login: '', password: ''});

@@ -1,12 +1,11 @@
-import React from 'react';
+import {type FC} from 'react';
 import styles from './ingredients-modal.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useLocation, useParams } from 'react-router-dom';
 import { getIngredients } from '../../services/ingredients/ingredientsSlice';
 import type { TApiIngredient } from '../../core/type';
 
-
-export const IngredientDetail: React.FC = () => {
+export const IngredientDetail: FC = () => {
     const params = useParams();
     const location = useLocation();
     console.log('location', location.state?.background);

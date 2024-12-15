@@ -1,13 +1,12 @@
 import styles from './constructor.module.css';
 import { useAppSelector } from '../../services/store';
 import { ConstructorItem } from './constructor-item';
-import { useCallback, useRef } from 'react';
+import { type FC, useCallback, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import type { XYCoord } from 'dnd-core'
-import { TApiIngredient } from '../../core/type';
+import type { TApiIngredient } from '../../core/type';
 
-
-export const BurgerConstructorList = () => {
+export const BurgerConstructorList: FC = () => {
     const loading = useAppSelector(state => state.ingredients.ingredientsLoading);
     const constructor = useAppSelector(state => state.ingredients.constructor);
 

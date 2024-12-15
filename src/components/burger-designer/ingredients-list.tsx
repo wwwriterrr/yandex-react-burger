@@ -1,14 +1,13 @@
 import styles from './ingredients.module.css';
-import React, { RefObject, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TApiIngredient, TApiIngredientGroup } from '../../core/type';
 import { Ingredient } from './ingredients-item';
 import { IngredientsSkeleton } from './ingredients-skeleton';
-import { groupBy, translateGroup } from '../../core/utils';
+import { getGroupedIngredients, translateGroup } from '../../core/utils';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getIngredients } from '../../services/ingredients/ingredientsSlice';
 
-
-export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = ({listRef}) => {
+export const IngredientsList = React.forwardRef<HTMLDivElement>((_, ref) => {
     const [ingredientsGroups, setIngredientsGroups] = useState<TApiIngredientGroup | null>(null);
 
     const dispatch = useAppDispatch();
@@ -23,7 +22,8 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
 
     useEffect(() => {
         if(ingredients.length){
-            setIngredientsGroups(groupBy(ingredients, 'type') as TApiIngredientGroup);
+            const groups = getGroupedIngredients(ingredients);
+            setIngredientsGroups(groups);
         }else{
             setIngredientsGroups(null);
         }
@@ -38,7 +38,7 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
                     {error ? (
                         <div>{error}</div>
                     ) : (
-                        <div ref={listRef} className={styles.list}>
+                        <div ref={ref} className={styles.list}>
                             {ingredientsGroups ? (
                                 <>
                                     {Object.keys(ingredientsGroups).map((key, index) => (
@@ -61,4 +61,4 @@ export const IngredientsList: React.FC<{listRef: RefObject<HTMLDivElement>}> = (
             )}
         </>
     )
-}
+})

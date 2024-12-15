@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './nav.module.css';
+import { type FC } from 'react';
 
-
-export const ProfileNav = () => {
+export const ProfileNav: FC = () => {
     const location = useLocation();
 
     const links = [

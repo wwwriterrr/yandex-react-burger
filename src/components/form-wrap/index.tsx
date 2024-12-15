@@ -1,7 +1,6 @@
-import React, { FormEvent } from "react";
+import { type FC, FormEvent } from 'react';
 import styles from './form-wrap.module.css';
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 type TProps = {
     title: string,
@@ -12,7 +11,7 @@ type TProps = {
     onSubmit?: (e: FormEvent) => void,
 }
 
-export const FormWrap: React.FC<TProps> = ({title, inputs, btnText, afterContent, className, onSubmit}) => {
+export const FormWrap: FC<TProps> = ({title, inputs, btnText, afterContent, className, onSubmit}) => {
     return (
         <div className={`${styles.wrap} ${className || ''}`}>
             <form className={styles.form} onSubmit={onSubmit}>

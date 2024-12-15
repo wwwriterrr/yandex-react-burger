@@ -1,10 +1,9 @@
-import React from 'react';
+import { type FC } from 'react';
 import styles from './header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 
-
-export const PageHeader: React.FC = () => {
+export const PageHeader: FC = () => {
     const location = useLocation();
 
     return (
