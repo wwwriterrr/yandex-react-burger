@@ -9,8 +9,8 @@ export const Ingredients: FC = () => {
     return (
         <div className={styles.wrap}>
             <h2 className={`text text_type_main-large ${styles.title}`}>Соберите бургер</h2>
-            <IngredientsTabs listRef={listRef} />
-            <IngredientsList listRef={listRef} />
+            <IngredientsTabs ref={listRef} />
+            <IngredientsList ref={listRef} />
         </div>
     )
 }

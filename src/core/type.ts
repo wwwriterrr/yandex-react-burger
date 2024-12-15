@@ -33,10 +33,10 @@ export type TApiIngredient = {
 }
 
 export type TApiIngredientGroup = {
-    // bun?: TApiIngredient[],
-    // main?: TApiIngredient[],
-    // sauce?: TApiIngredient[],
-    (k: 'bun' | 'main' | 'sauce'): TApiIngredient[],
+    bun: TApiIngredient[],
+    main: TApiIngredient[],
+    sauce: TApiIngredient[],
+    // (k: 'bun' | 'main' | 'sauce'): TApiIngredient[],
 }
 
 export type TIconProps = {
