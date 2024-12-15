@@ -56,3 +56,8 @@ export type TLoginData = {
     refreshToken: string,
     user: TUserData
 }
+
+export interface IDropResult {
+    name: string,
+    pos: 'top' | 'bottom',
+}
