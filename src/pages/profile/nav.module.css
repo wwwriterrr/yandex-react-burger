@@ -1,7 +1,3 @@
-.nav{
-
-}
-
 .links{
     list-style: none;display: flex;flex-direction: column;gap: 20px;padding: 0;margin: 0;
 }
@@ -12,10 +8,6 @@
 
 .link :global a{
     color: #8585AD;
-}
-
-.linkActive{
-    
 }
 
 .linkActive :global a{

@@ -23,7 +23,9 @@
 .closeButton{
     grid-area: btn;position:relative; width: 30px;height: 30px;padding: 3px;
 }
-.closeButton svg{width: 100%;height: 100%;}
+.closeButton svg{
+    width: 100%;height: 100%;
+}
 
 .content{
     position: relative;
