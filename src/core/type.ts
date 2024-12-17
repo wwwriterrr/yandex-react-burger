@@ -61,3 +61,11 @@ export interface IDropResult {
     name: string,
     pos: 'top' | 'bottom',
 }
+
+export type TOrderItem = {
+    id: number,
+    title: string,
+    dt: number,
+    price: number,
+    items: string[],
+}

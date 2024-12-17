@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TApiIngredient, TApiResponse } from "../../core/type";
-import { apiUrl } from "../../core/constants";
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { TApiIngredient, TApiResponse } from '../../core/type';
+import { apiUrl } from '../../core/constants';
 import update from 'immutability-helper'
-import { RootState } from "../store";
-import { checkResponse } from "../../core/utils";
-
+import { type RootState } from '../store';
+import { checkResponse } from '../../core/utils';
 
 type IngredientsState = {
     ingredients: TApiIngredient[],
+    ingredientsMap: Map<string, TApiIngredient>,
     ingredientsLoading: boolean,
     ingredientsError: string | null,
     constructor: (TApiIngredient & {rowId: string})[],
@@ -78,6 +78,7 @@ export const createOrder = createAsyncThunk(
 
 const initialState: IngredientsState = {
     ingredients: [],
+    ingredientsMap: new Map<string, TApiIngredient>(),
     ingredientsLoading: false,
     ingredientsError: null,
     constructor: [],
@@ -151,6 +152,14 @@ export const ingredientsSlice = createSlice({
             .addCase(getIngredients.fulfilled, (state, action) => {
                 state.ingredientsLoading = false;
                 state.ingredients = action.payload;
+
+                // Set ingredients in Map object
+
+                // action.payload.map(item => {
+                //     state.ingredientsMap.set(item._id, item);
+                // })
+
+                // Set initial construktor
 
                 const firstBun = action.payload.filter(item => item.type === 'bun')[0];
 

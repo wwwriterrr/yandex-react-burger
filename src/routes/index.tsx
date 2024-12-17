@@ -10,6 +10,8 @@ import {
 	ProfileSettings,
 	OrdersList,
     LogoutPage,
+    FeedPage,
+    OrderPage,
 } from '../pages';
 import { IngredientDetail } from '../components/burger-designer/ingredients-modal';
 import { Modal, PageHeader } from '../components';
@@ -39,6 +41,9 @@ export const AppRoutes: FC = () => {
                     <Route path={`orders`} element={<OrdersList />} />
                 </Route>
                 <Route path='/ingredients/:ingredientId' element={<><PageHeader /><IngredientDetail /></>} />
+                <Route path='/feed/' element={<FeedPage />}>
+                    <Route path=':id/' element={<OrderPage />} />
+                </Route>
                 <Route path={'*'} element={<div>Not found</div>} />
             </Routes>
 
