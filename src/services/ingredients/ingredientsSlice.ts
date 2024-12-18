@@ -5,6 +5,10 @@ import update from 'immutability-helper'
 import { type RootState } from '../store';
 import { checkResponse } from '../../core/utils';
 
+import { enableMapSet } from 'immer';
+
+enableMapSet();
+
 type IngredientsState = {
     ingredients: TApiIngredient[],
     ingredientsMap: Map<string, TApiIngredient>,
@@ -155,9 +159,9 @@ export const ingredientsSlice = createSlice({
 
                 // Set ingredients in Map object
 
-                // action.payload.map(item => {
-                //     state.ingredientsMap.set(item._id, item);
-                // })
+                action.payload.map(item => {
+                    state.ingredientsMap.set(item._id, item);
+                })
 
                 // Set initial construktor
 

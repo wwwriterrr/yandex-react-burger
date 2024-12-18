@@ -63,9 +63,11 @@ export interface IDropResult {
 }
 
 export type TOrderItem = {
-    id: number,
-    title: string,
-    dt: number,
-    price: number,
-    items: string[],
+    ingredients: string[],
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string,
 }
+
