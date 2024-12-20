@@ -67,3 +67,5 @@ export default authSlice.reducer;
 export const {getIsAuthChecked, getUser} = authSlice.selectors;
 
 export const {setIsAuthChecked, setUser} = authSlice.actions;
+
+export type TAuthInternalActions = ReturnType<typeof authSlice.actions[keyof typeof authSlice.actions]>;
