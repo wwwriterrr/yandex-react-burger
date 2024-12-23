@@ -1,3 +1,12 @@
 .wrap{
     
 }
+
+.content{
+    position: relative; margin: 30px auto 0 auto; width: 1240px;min-height: 100vh;
+    display: grid;grid-template: 'feed stat' auto / 1fr 1fr;gap: 30px;
+}
+
+.feed{
+    grid-area: feed;max-height: 940px;overflow: auto;padding: 0 10px 0 0;
+}

@@ -147,6 +147,10 @@ export const ingredientsSlice = createSlice({
             state.activeIngredient = action.payload.ingredient;
         },
     },
+    selectors: {
+        getIngredientsMap: state => state.ingredientsMap,
+        getIngredientsLoading: state => state.ingredientsLoading,
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getIngredients.pending, (state) => {
@@ -205,6 +209,8 @@ export const ingredientsSlice = createSlice({
 export default ingredientsSlice.reducer;
 
 export const {removeConstructorItem, moveConstructorItem, replaceConstructorBun, addToConstructor, setActiveIngredient} = ingredientsSlice.actions;
+
+export const {getIngredientsMap, getIngredientsLoading} = ingredientsSlice.selectors;
 
 export type TIngredientsInternalActions = ReturnType<typeof ingredientsSlice.actions[keyof typeof ingredientsSlice.actions]>;
 

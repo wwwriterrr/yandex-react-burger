@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { type TOrderItem, WebsocketStatus } from '../../core/type';
 
 
@@ -31,8 +31,8 @@ export const FeedSlice = createSlice({
         wsError: (state, action) => {
             state.connectionError = action.payload;
         },
-        wsMessage: (state, action) => {
-            
+        wsMessage: (state, action: PayloadAction<{success: boolean, orders: TOrderItem[]}>) => {
+            state.messages = action.payload.orders;
         }
     },
     selectors: {
