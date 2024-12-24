@@ -4,9 +4,17 @@
 
 .content{
     position: relative; margin: 30px auto 0 auto; width: 1240px;min-height: 100vh;
-    display: grid;grid-template: 'feed stat' auto / 1fr 1fr;gap: 30px;
+    display: grid;grid-template: 'title title' auto 'feed stat' auto / 1fr 1fr;gap: 20px 60px;
+}
+
+.title{
+    grid-area: title;font-size: 36px;font-weight: 700;margin: 0;
 }
 
 .feed{
     grid-area: feed;max-height: 940px;overflow: auto;padding: 0 10px 0 0;
+}
+
+.stat{
+    grid-area: stat;
 }

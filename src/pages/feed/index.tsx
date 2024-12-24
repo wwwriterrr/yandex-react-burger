@@ -6,8 +6,6 @@ import { Feed } from './feed';
 export const FeedPage: FC = () => {
     const {id} = useParams();
 
-    console.log(id);
-
     return (
         <>
             {id ? (

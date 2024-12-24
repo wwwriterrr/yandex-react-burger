@@ -44,6 +44,17 @@ export const translateGroup = (title: string) => {
     }
 }
 
+export const translateStatus = (status: string) => {
+    switch(status){
+        case 'done':
+            return 'Выполнен';
+        case 'wait':
+            return 'В работе';
+        default:
+            return status
+    }
+}
+
 export const checkResponse = async (response: Response) => {
     if(!response.ok){
         return Promise.reject(`Error with fetch. Status ${response.status}`);

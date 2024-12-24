@@ -1,0 +1,24 @@
+.wrap{
+
+}
+
+.title{
+    font-size: 24px;margin: 0 0 24px 0;
+}
+
+.list{
+    list-style: none;margin: 0 0 60px 0;padding: 0 10px 0 0;
+    display: flex;flex-direction: column;gap: 16px;
+}
+
+.total{
+    display: flex;align-items: center;justify-content: space-between;
+}
+
+.dt{
+    color: #8585AD;
+}
+
+.totalRight{
+    display: flex;align-items: center;gap: 10px;
+}
