@@ -8,7 +8,6 @@ import {
 	ResetPage,
 	ProfilePage,
 	ProfileSettings,
-	OrdersList,
     LogoutPage,
     FeedPage,
     OrderPage,
@@ -16,6 +15,7 @@ import {
 import { IngredientDetail } from '../components/burger-designer/ingredients-modal';
 import { Modal, PageHeader } from '../components';
 import { OnlyAuth, OnlyUnAuth } from '../components/protected-route';
+import { ProfileOrdersList } from '../pages/profile/orders';
 
 
 export const AppRoutes: FC = () => {
@@ -38,7 +38,7 @@ export const AppRoutes: FC = () => {
                 <Route path={`/forgot-password`} element={<OnlyUnAuth component={<ResetPage />} />} />
                 <Route path={`/profile`} element={<OnlyAuth component={<ProfilePage />} />} >
                     <Route path={`settings`} element={<ProfileSettings />} />
-                    <Route path={`orders`} element={<OrdersList />} />
+                    <Route path={`orders`} element={<ProfileOrdersList />} />
                 </Route>
                 <Route path='/ingredients/:ingredientId' element={<><PageHeader /><IngredientDetail /></>} />
                 <Route path='/feed/' element={<FeedPage />}>

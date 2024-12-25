@@ -3,13 +3,23 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ingredientsSlice, TIngredientsInternalActions } from './ingredients/ingredientsSlice';
 import { authSlice, TAuthInternalActions } from './auth/auth-slice';
 import { FeedSlice, TFeedWsInternalActions, wsClose, wsConnecting, wsError, wsMessage, wsOpen } from './feed/feed-slice';
+import { 
+    wsOpen as wsProfileOpen,
+    wsClose as wsProfileClose,
+    wsConnecting as wsProfileConnecting,
+    wsError as wsProfileError,
+    wsMessage as wsProfileMessage,
+} from './feed-profile/feed-profile-slice';
 import { feedWsConnect, feedWsDisconnect, TFeedWsExternalActions } from './feed/feed-actions';
 import { socketMiddleware } from './middleware/socket-middleware';
+import { FeedProfileSlice, TFeedProfileWsInternalActions } from './feed-profile/feed-profile-slice';
+import { feedProfileWsConnect, feedProfileWsDisconnect, TFeedProfileWsExternalActions } from './feed-profile/feed-profile-actions';
 
 export const rootReducer = combineReducers({
     [authSlice.reducerPath]: authSlice.reducer,
     [ingredientsSlice.reducerPath]: ingredientsSlice.reducer,
     [FeedSlice.reducerPath]: FeedSlice.reducer,
+    [FeedProfileSlice.reducerPath]: FeedProfileSlice.reducer,
 })
 
 const feedMiddleware = socketMiddleware({
@@ -22,14 +32,25 @@ const feedMiddleware = socketMiddleware({
     onMessage: wsMessage,
 })
 
+const feedProfileMiddleware = socketMiddleware({
+    connect: feedProfileWsConnect,
+    disconnect: feedProfileWsDisconnect,
+    onConnecting: wsProfileConnecting,
+    onOpen: wsProfileOpen,
+    onClose: wsProfileClose,
+    onError: wsProfileError,
+    onMessage: wsProfileMessage,
+})
+
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }).concat(feedMiddleware),
+    }).concat(feedMiddleware).concat(feedProfileMiddleware),
 })
 
 type TApplicationActions = TFeedWsInternalActions | TFeedWsExternalActions |
+    TFeedProfileWsInternalActions | TFeedProfileWsExternalActions |
     TAuthInternalActions |
     TIngredientsInternalActions;
 

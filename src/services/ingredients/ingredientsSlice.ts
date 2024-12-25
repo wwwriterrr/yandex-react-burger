@@ -56,12 +56,16 @@ export const createOrder = createAsyncThunk(
             return [...acc, (row as TApiIngredient)._id];
         }, [])
 
+        const accessToken = localStorage.getItem('accessToken');
+        const headers: HeadersInit = {
+            'Content-Type': 'application/json',
+        }
+        if(accessToken) headers.authorization = accessToken;
+
         try{
             const response = await fetch(`${apiUrl}/orders`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers,
                 body: JSON.stringify({ingredients}),
             });
 

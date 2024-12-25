@@ -8,6 +8,7 @@ import { useAppSelector } from '../../services/store';
 import { getFeed } from '../../services/feed/feed-slice';
 import { OrderIngredients } from './ingredients';
 import { translateStatus } from '../../core/utils';
+import { getFeedProfile } from '../../services/feed-profile/feed-profile-slice';
 
 export const OrderDetail: FC = () => {
     const {id} = useParams();
@@ -16,11 +17,23 @@ export const OrderDetail: FC = () => {
 
     const feed = useAppSelector(getFeed);
 
+    const feedProfile = useAppSelector(getFeedProfile);
+
     useEffect(() => {
         if(id){
             let order: TOrderItem | undefined = feed.find(item => item.number === parseInt(id));
 
-            if(order) setOrder(order);
+            if(order){
+                setOrder(order);
+                return;
+            }
+
+            order = feedProfile.find(item => item.number === parseInt(id));
+
+            if(order){
+                setOrder(order);
+                return;
+            }
         }
     }, [])
 

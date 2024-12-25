@@ -1,6 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-
 export const feedWsConnect = createAction<string, 'FEED_CONNECT'>('FEED_CONNECT');
 
 export const feedWsDisconnect = createAction('FEED_DISCONNECT');
