@@ -10,7 +10,7 @@ export type TFeedStore = {
     connectionError: string | null,
 }
 
-type TFeedResponse = {
+export type TFeedResponse = {
     success: boolean, 
     orders: TOrderItem[], 
     total: number, 

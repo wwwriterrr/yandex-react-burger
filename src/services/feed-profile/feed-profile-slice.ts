@@ -7,7 +7,7 @@ export type TFeedProfileStore = {
     connectionError: string | null,
 }
 
-type TFeedProfileResponse = {
+export type TFeedProfileResponse = {
     success: boolean, 
     orders: TOrderItem[], 
     total: number, 

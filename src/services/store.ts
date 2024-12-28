@@ -2,13 +2,14 @@ import {combineReducers, configureStore, ThunkDispatch} from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ingredientsSlice, TIngredientsInternalActions } from './ingredients/ingredientsSlice';
 import { authSlice, TAuthInternalActions } from './auth/auth-slice';
-import { FeedSlice, TFeedWsInternalActions, wsClose, wsConnecting, wsError, wsMessage, wsOpen } from './feed/feed-slice';
+import { FeedSlice, TFeedResponse, TFeedWsInternalActions, wsClose, wsConnecting, wsError, wsMessage, wsOpen } from './feed/feed-slice';
 import { 
     wsOpen as wsProfileOpen,
     wsClose as wsProfileClose,
     wsConnecting as wsProfileConnecting,
     wsError as wsProfileError,
     wsMessage as wsProfileMessage,
+    TFeedProfileResponse,
 } from './feed-profile/feed-profile-slice';
 import { feedWsConnect, feedWsDisconnect, TFeedWsExternalActions } from './feed/feed-actions';
 import { socketMiddleware } from './middleware/socket-middleware';
@@ -22,7 +23,7 @@ export const rootReducer = combineReducers({
     [FeedProfileSlice.reducerPath]: FeedProfileSlice.reducer,
 })
 
-const feedMiddleware = socketMiddleware({
+const feedMiddleware = socketMiddleware<unknown, TFeedResponse>({
     connect: feedWsConnect,
     disconnect: feedWsDisconnect,
     onConnecting: wsConnecting,
@@ -32,7 +33,7 @@ const feedMiddleware = socketMiddleware({
     onMessage: wsMessage,
 })
 
-const feedProfileMiddleware = socketMiddleware({
+const feedProfileMiddleware = socketMiddleware<unknown, TFeedProfileResponse>({
     connect: feedProfileWsConnect,
     disconnect: feedProfileWsDisconnect,
     onConnecting: wsProfileConnecting,
