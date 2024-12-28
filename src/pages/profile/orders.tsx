@@ -17,8 +17,6 @@ export const ProfileOrdersList: FC = () => {
     
     const feed = useAppSelector(getFeedProfile);
 
-    console.log(feed);
-
     useEffect(() => {
         if(!ingredientsMap.size && !ingredientsLoading){
             dispatch(getIngredients());
