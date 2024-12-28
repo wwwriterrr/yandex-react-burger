@@ -3,7 +3,7 @@ import styles from './feed.module.css';
 import { OrdersList } from '../../components/orders-list';
 import { PageFooter, PageHeader } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { feedWsConnect } from '../../services/feed/feed-actions';
+import { feedWsConnect, feedWsDisconnect } from '../../services/feed/feed-actions';
 import { getFeed } from '../../services/feed/feed-slice';
 import { OrdersStat } from '../../components/orders-stat';
 import { getIngredients, getIngredientsLoading, getIngredientsMap } from '../../services/ingredients/ingredientsSlice';
@@ -22,6 +22,10 @@ export const Feed: FC = () => {
         }
 
         dispatch(feedWsConnect('wss://norma.nomoreparties.space/orders/all'));
+
+        return () => {
+            dispatch(feedWsDisconnect());
+        }
     }, [])
 
     return (
