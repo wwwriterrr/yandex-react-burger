@@ -5,9 +5,12 @@ import { feedProfileWsConnect } from '../../services/feed-profile/feed-profile-a
 import { OrdersList } from '../../components/orders-list';
 import { getIngredients, getIngredientsLoading, getIngredientsMap } from '../../services/ingredients/ingredientsSlice';
 import { getFeedProfile } from '../../services/feed-profile/feed-profile-slice';
+import { Outlet, useParams } from 'react-router-dom';
 
 export const ProfileOrdersList: FC = () => {
     const dispatch = useAppDispatch();
+
+    const {id} = useParams();
 
     const ingredientsLoading = useAppSelector(getIngredientsLoading);
     const ingredientsMap = useAppSelector(getIngredientsMap);
@@ -26,8 +29,12 @@ export const ProfileOrdersList: FC = () => {
     }, [])
 
     return (
-        <div className={styles.wrap}>
-            <OrdersList className={styles.feed} feed={feed} />
-        </div>
+        <>
+            {id ? <Outlet /> : (
+                <div className={styles.wrap}>
+                    <OrdersList className={styles.feed} feed={feed} />
+                </div>
+            )}
+        </>
     )
 }

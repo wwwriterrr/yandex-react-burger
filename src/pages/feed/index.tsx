@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { useParams } from 'react-router-dom';
-import { OrderDetail } from '../../components/order-detail';
+import { Outlet, useParams } from 'react-router-dom';
+// import { OrderDetail } from '../../components/order-detail';
 import { Feed } from './feed';
 
 export const FeedPage: FC = () => {
@@ -9,7 +9,7 @@ export const FeedPage: FC = () => {
     return (
         <>
             {id ? (
-                <OrderDetail />
+                <Outlet />
             ) : (
                 <Feed />
             )}

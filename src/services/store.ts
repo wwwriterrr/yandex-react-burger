@@ -40,7 +40,7 @@ const feedProfileMiddleware = socketMiddleware({
     onClose: wsProfileClose,
     onError: wsProfileError,
     onMessage: wsProfileMessage,
-})
+}, true)
 
 export const store = configureStore({
     reducer: rootReducer,

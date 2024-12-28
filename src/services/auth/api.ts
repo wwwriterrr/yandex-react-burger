@@ -208,6 +208,7 @@ const ResetPassword = async ({password, token}: {password: string, token: string
 }
 
 export const api = {
+    RefreshToken,
     getUser,
     Login,
     Logout,

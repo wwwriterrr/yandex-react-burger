@@ -38,7 +38,9 @@ export const AppRoutes: FC = () => {
                 <Route path={`/forgot-password`} element={<OnlyUnAuth component={<ResetPage />} />} />
                 <Route path={`/profile`} element={<OnlyAuth component={<ProfilePage />} />} >
                     <Route path={`settings`} element={<ProfileSettings />} />
-                    <Route path={`orders`} element={<ProfileOrdersList />} />
+                    <Route path={`orders`} element={<ProfileOrdersList />} >
+                        <Route path=':id/' element={<OrderPage />} />
+                    </Route>
                 </Route>
                 <Route path='/ingredients/:ingredientId' element={<><PageHeader /><IngredientDetail /></>} />
                 <Route path='/feed/' element={<FeedPage />}>
