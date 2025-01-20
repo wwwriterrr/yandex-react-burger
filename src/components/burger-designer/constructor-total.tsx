@@ -6,11 +6,17 @@ import { TotalModal } from './total-modal';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { createOrder, TOrderResponse } from '../../services/ingredients/ingredientsSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { getUser } from '../../services/auth/auth-slice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructorTotal: FC = () => {
     const [total, setTotal] = useState<number>(0);
 
+    const navigate = useNavigate();
+
     const dispatch = useAppDispatch();
+
+    const user = useAppSelector(getUser);
 
     const {openModal} = useModalContext();
 
@@ -29,6 +35,8 @@ export const BurgerConstructorTotal: FC = () => {
     }, [constructor]);
 
     const onClickHandler: () => void = () => {
+        if(!user) navigate('/login');
+
         if(loading) return;
 
         dispatch(createOrder())

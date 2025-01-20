@@ -1,6 +1,6 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
-import React, { type FC, RefObject, useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { translateGroup } from '../../core/utils';
 

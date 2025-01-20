@@ -1,0 +1,48 @@
+.wrap{
+    display: flex;flex-direction: column;gap: 60px;
+}
+
+.counts{
+    display: grid;grid-template: auto / 1fr 1fr;
+}
+
+.done{
+
+}
+
+.wait{
+
+}
+
+.title{
+    margin: 0 0 24px 0;padding: 0;
+}
+
+.list{
+    list-style: none;margin: 0;padding: 0;
+    display: flex;flex-direction: column;gap: 8px;
+}
+
+.item{
+    font-size: 28px;
+}
+
+.done .item{
+    color: #00CCCC;
+}
+
+.wait .item{
+    color: #fff;
+}
+
+.total{
+    display: flex;flex-direction: column;gap: 2px;
+}
+
+.total :global(h3){
+    font-size: 24px;margin: 0;
+}
+
+.total :global(span){
+    text-shadow: 0 0 24px #3333FF80;
+}

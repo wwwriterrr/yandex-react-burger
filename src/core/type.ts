@@ -61,3 +61,19 @@ export interface IDropResult {
     name: string,
     pos: 'top' | 'bottom',
 }
+
+export type TOrderItem = {
+    ingredients: string[],
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string,
+    name: string,
+}
+
+export enum WebsocketStatus {
+    CONNECTING = 'CONNECTING...',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE',
+}

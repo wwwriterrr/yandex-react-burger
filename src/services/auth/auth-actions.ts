@@ -113,3 +113,11 @@ export const authResetPassword = createAsyncThunk(
         }
     }
 )
+
+export type TAuthExternalActions = ReturnType<typeof checkUserAuth> | 
+    ReturnType<typeof authLogin> | 
+    ReturnType<typeof authLogout> | 
+    ReturnType<typeof authRegister> | 
+    ReturnType<typeof authProfile> | 
+    ReturnType<typeof authForgotPassword> | 
+    ReturnType<typeof authResetPassword>; 

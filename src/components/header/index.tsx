@@ -14,7 +14,7 @@ export const PageHeader: FC = () => {
                         <BurgerIcon type={`primary`}/>
                         <span>Конструктор</span>
                     </Link>
-                    <Link to={'/profile/orders'} className={`${styles.link} ${location.pathname === '/profile/orders' ? styles.active : ''}`}>
+                    <Link to={'/feed/'} className={`${styles.link} ${location.pathname === '/feed/' ? styles.active : ''}`}>
                         <ListIcon type={`primary`}/>
                         <span>Лента заказов</span>
                     </Link>

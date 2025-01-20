@@ -1,13 +1,17 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TApiIngredient, TApiResponse } from "../../core/type";
-import { apiUrl } from "../../core/constants";
-import update from 'immutability-helper'
-import { RootState } from "../store";
-import { checkResponse } from "../../core/utils";
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { TApiIngredient, TApiResponse } from '../../core/type';
+import { apiUrl } from '../../core/constants';
+import update from 'immutability-helper';
+import { RootState } from '../store';
+import { checkResponse } from '../../core/utils';
 
+import { enableMapSet } from 'immer';
+
+enableMapSet();
 
 type IngredientsState = {
     ingredients: TApiIngredient[],
+    ingredientsMap: Map<string, TApiIngredient>,
     ingredientsLoading: boolean,
     ingredientsError: string | null,
     constructor: (TApiIngredient & {rowId: string})[],
@@ -49,15 +53,19 @@ export const createOrder = createAsyncThunk(
     async (_, {rejectWithValue, getState}) => {
         const constructor = (getState() as RootState).ingredients.constructor;
         const ingredients = constructor.reduce((acc: string[], row) => {
-            return [...acc, row._id];
+            return [...acc, (row as TApiIngredient)._id];
         }, [])
+
+        const accessToken = localStorage.getItem('accessToken');
+        const headers: HeadersInit = {
+            'Content-Type': 'application/json',
+        }
+        if(accessToken) headers.authorization = accessToken;
 
         try{
             const response = await fetch(`${apiUrl}/orders`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers,
                 body: JSON.stringify({ingredients}),
             });
 
@@ -78,6 +86,7 @@ export const createOrder = createAsyncThunk(
 
 const initialState: IngredientsState = {
     ingredients: [],
+    ingredientsMap: new Map<string, TApiIngredient>(),
     ingredientsLoading: false,
     ingredientsError: null,
     constructor: [],
@@ -142,6 +151,10 @@ export const ingredientsSlice = createSlice({
             state.activeIngredient = action.payload.ingredient;
         },
     },
+    selectors: {
+        getIngredientsMap: state => state.ingredientsMap,
+        getIngredientsLoading: state => state.ingredientsLoading,
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getIngredients.pending, (state) => {
@@ -151,6 +164,14 @@ export const ingredientsSlice = createSlice({
             .addCase(getIngredients.fulfilled, (state, action) => {
                 state.ingredientsLoading = false;
                 state.ingredients = action.payload;
+
+                // Set ingredients in Map object
+
+                action.payload.map(item => {
+                    state.ingredientsMap.set(item._id, item);
+                })
+
+                // Set initial constructor
 
                 const firstBun = action.payload.filter(item => item.type === 'bun')[0];
 
@@ -192,3 +213,9 @@ export const ingredientsSlice = createSlice({
 export default ingredientsSlice.reducer;
 
 export const {removeConstructorItem, moveConstructorItem, replaceConstructorBun, addToConstructor, setActiveIngredient} = ingredientsSlice.actions;
+
+export const {getIngredientsMap, getIngredientsLoading} = ingredientsSlice.selectors;
+
+export type TIngredientsInternalActions = ReturnType<typeof ingredientsSlice.actions[keyof typeof ingredientsSlice.actions]>;
+
+export type TIngredientsExternalActions = ReturnType<typeof createOrder> | ReturnType<typeof getIngredients>;
