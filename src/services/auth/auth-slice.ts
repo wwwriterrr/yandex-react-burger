@@ -9,7 +9,7 @@ type TAuthInitialState = {
     loading: boolean,
 }
 
-const initialState: TAuthInitialState = {
+export const initialState: TAuthInitialState = {
     isAuthChecked: false,
     user: null,
     loading: false,
