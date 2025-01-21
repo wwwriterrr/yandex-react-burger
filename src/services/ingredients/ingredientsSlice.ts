@@ -84,7 +84,7 @@ export const createOrder = createAsyncThunk(
     }
 )
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
     ingredients: [],
     ingredientsMap: new Map<string, TApiIngredient>(),
     ingredientsLoading: false,
