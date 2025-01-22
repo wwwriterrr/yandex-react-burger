@@ -56,7 +56,7 @@ export const BurgerConstructorTotal: FC = () => {
                         <span>{total}</span>
                         <CurrencyIcon type={`primary`} />
                     </div>
-                    <Button htmlType="button" type={`primary`} size="large" onClick={onClickHandler}>
+                    <Button htmlType="button" type={`primary`} size="large" onClick={onClickHandler} data-testid="create_order_btn">
                         {loading ? 'Ожидайте ...' : `Оформить заказ`}
                     </Button>
                 </div>
