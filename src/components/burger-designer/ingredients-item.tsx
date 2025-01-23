@@ -48,6 +48,7 @@ export const Ingredient: FC<{ingredient: TApiIngredient}> = ({ingredient}) => {
             to={`/ingredients/${_id}`}
             state={{ background: location }}
             className={styles.link}
+            data-testid={_id}
         >
             <div 
                 // ref={ref} 

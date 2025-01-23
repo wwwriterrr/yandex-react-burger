@@ -35,11 +35,14 @@ export const LoginPage: FC = () => {
             name={`login`}
             onChange={onChangeHandler}
             required
+            data-testid={'login_input'}
         />,
         <PasswordInput 
             value={form.password}
             name={'password'}
             onChange={onChangeHandler}
+            data-testid={'password_input'}
+            testId={'password_input'}
         />
     ]
 

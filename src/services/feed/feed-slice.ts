@@ -17,7 +17,7 @@ export type TFeedResponse = {
     totalToday: number
 }
 
-const initialState: TFeedStore = {
+export const initialState: TFeedStore = {
     status: WebsocketStatus.OFFLINE,
     messages: [],
     total: 0,

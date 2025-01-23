@@ -6,9 +6,10 @@ type TProps = {
     name: string,
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
     placeholder?: string,
+    testId?: string,
 }
 
-export const PasswordInput: FC<TProps> = ({value, name, onChange, placeholder}) => {
+export const PasswordInput: FC<TProps> = ({value, name, onChange, placeholder, testId}) => {
     const passwdRef = useRef<HTMLInputElement>(null);
 
     const [passwdType, setPasswdType] = useState<'password' | 'text'>('password');
@@ -35,6 +36,7 @@ export const PasswordInput: FC<TProps> = ({value, name, onChange, placeholder}) 
             icon={icon}
             onIconClick={iconClickHandler}
             required
+            data-testid={testId}
         />
     )
 }

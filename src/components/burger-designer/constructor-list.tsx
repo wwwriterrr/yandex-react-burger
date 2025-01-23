@@ -52,7 +52,7 @@ export const BurgerConstructorList: FC = () => {
     drop(listRef);
 
     return (
-        <div ref={listRef} className={`${styles.list} ${canDrop ? styles.listCanDrop : ''}`}>
+        <div ref={listRef} className={`${styles.list} ${canDrop ? styles.listCanDrop : ''}`} data-testid="constructor">
             {loading ? (
                 <div>Loading ...</div>
             ) : (
