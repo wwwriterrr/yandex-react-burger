@@ -11,6 +11,22 @@ describe('Redux store and actions. Auth Slice.', () => {
         expect(authSlice.reducer(undefined, {type: ''})).toEqual(initialState);
     })
 
+    it('Auth set correctly', () => {
+        const action = {type: authSlice.actions.setIsAuthChecked.type, payload: true};
+        
+        const state = authSlice.reducer(initialState, action);
+
+        expect(state).toEqual({...initialState, isAuthChecked: true});
+    })
+
+    it('User set correctly', () => {
+        const action = {type: authSlice.actions.setUser.type, payload: {name: 'test1', email: 'test2'}};
+
+        const state = authSlice.reducer(initialState, action);
+
+        expect(state).toEqual({...initialState, user: {name: 'test1', email: 'test2'}});
+    })
+
     it('Login fulfilled', () => {
         const action = {type: authLogin.fulfilled.type, payload: userData};
 
