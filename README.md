@@ -51,4 +51,4 @@
 
 ## Деплой
 
-Приложение задеплоено и доступно по ссылке [tmp.alterlit.beget.tech/](http://tmp.alterlit.beget.tech/).
+Приложение задеплоено и доступно по ссылке [tmp.alterlit.beget.tech](http://tmp.alterlit.beget.tech/).
